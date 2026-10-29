@@ -187,7 +187,7 @@ Un assistant te propose ensuite l'apparence, un premier projet et ton agent par 
 
 Le coordinateur, les sous-agents, les revues et les corrections utilisent tous le modèle. Plusieurs agents ne donnent pas plusieurs abonnements : ils peuvent consommer les limites du même compte.
 
-**Lire les montants correctement.** Claude Code peut calculer une estimation monétaire à partir des tokens utilisés. Les valeurs de 3,55 $ et 0,14 $ rapportées lors d'essais du projet étaient des montants remontés par le CLI, pas des débits bancaires vérifiés ni une promesse de prix par mission. Pour un abonnement, surveille les limites d'usage ; pour l'API, consulte la facturation du fournisseur.
+**Lire les montants correctement.** Claude Code peut calculer une estimation monétaire à partir des tokens utilisés. Ce montant est une estimation remontée par le CLI : ce n'est ni un débit bancaire ni un prix garanti par mission. Pour un abonnement, surveille les limites d'usage ; pour l'API, consulte la facturation du fournisseur.
 
 Une clé `ANTHROPIC_API_KEY` configurée peut faire utiliser la facturation API plutôt que l'abonnement. Avoir Pro ne suffit donc pas à identifier la connexion effectivement utilisée. Vérifie le compte dans Claude Code et les options d'usage supplémentaire de ton abonnement. Les limites de tâches, de durée et de parallélisme de Constellation ne sont pas un plafond garanti de facturation.
 
