@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Signaler une faille de sécurité
+    url: https://github.com/r97sgkjtdh-ops/constellation/security/advisories/new
+    about: En privé, visible seulement par le mainteneur.
+  - name: Guide d'installation et dépannage
+    url: https://github.com/r97sgkjtdh-ops/constellation#dépannage
+    about: Les réponses aux problèmes les plus courants.

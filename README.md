@@ -406,7 +406,7 @@ Constellation est en développement actif. Les principales limites :
 ## Signaler un problème
 
 - **Un bug ou une idée** : ouvre une [issue](https://github.com/r97sgkjtdh-ops/constellation/issues) avec ta version de macOS, la version de Constellation (Réglages › À propos), les étapes pour reproduire, et ce que tu attendais.
-- **Une faille de sécurité** : ne la publie pas dans une issue publique. Utilise le signalement privé de GitHub (onglet **Security › Report a vulnerability**).
+- **Une faille de sécurité** : ne la publie pas dans une issue publique. Utilise le signalement privé de GitHub (onglet **Security › Report a vulnerability**), comme l’explique la [politique de sécurité](SECURITY.md).
 
 Ce dépôt ne contient que la documentation et les versions publiées : le code source n'y est pas.
 

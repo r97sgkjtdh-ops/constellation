@@ -1,0 +1,44 @@
+name: Signaler un bug
+description: Quelque chose ne fonctionne pas comme prévu.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Merci de prendre le temps de signaler ce problème. Une **faille de sécurité** ne se signale pas ici : utilise l'onglet Security › Report a vulnerability.
+  - type: input
+    id: version
+    attributes:
+      label: Version de Constellation
+      description: Réglages › À propos.
+      placeholder: "0.3.1"
+    validations:
+      required: true
+  - type: input
+    id: macos
+    attributes:
+      label: Version de macOS et modèle de Mac
+      placeholder: "macOS 15.2, MacBook Air M2"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Étapes pour reproduire
+      placeholder: |
+        1. Ouvre…
+        2. Clique sur…
+        3. …
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Ce que tu attendais, et ce qui s'est passé
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Captures ou messages d'erreur
+      description: Retire toute information personnelle (chemins, adresses, jetons) avant de les coller.
