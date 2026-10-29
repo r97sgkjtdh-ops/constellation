@@ -1,0 +1,47 @@
+Licence d'utilisation de Constellation
+
+Copyright (c) 2026 Vel. Tous droits réservés.
+
+Constellation (l'application, son code et ses ressources, ci-après « le Logiciel »)
+n'est pas un logiciel libre. Son code source n'est pas publié.
+
+1. Droit d'utilisation
+   Vous pouvez télécharger, installer et utiliser gratuitement le Logiciel, à titre
+   personnel ou professionnel, sur les ordinateurs dont vous avez l'usage, à
+   condition de l'obtenir depuis la page officielle des versions :
+   https://github.com/r97sgkjtdh-ops/constellation/releases
+
+2. Restrictions
+   Sauf accord écrit de l'auteur, vous ne pouvez pas :
+   a) redistribuer, revendre, louer ou mettre à disposition le Logiciel, modifié
+      ou non, y compris par un autre site de téléchargement ;
+   b) le modifier ou en créer des œuvres dérivées ;
+   c) le décompiler, le désassembler ou en rechercher le code source, sauf dans
+      les cas où la loi applicable l'autorise malgré cette clause ;
+   d) retirer ou modifier les mentions de copyright.
+
+3. Propriété
+   Le Logiciel est concédé sous licence, pas vendu. L'auteur en conserve tous les
+   droits de propriété intellectuelle.
+
+4. Services tiers
+   Le Logiciel lance des outils tiers (par exemple Claude Code) que vous installez
+   vous-même. Leur usage est soumis à leurs propres conditions. Constellation n'est
+   pas affiliée à Anthropic, OpenAI ou Google.
+
+5. Absence de garantie
+   LE LOGICIEL EST FOURNI « EN L'ÉTAT », SANS GARANTIE D'AUCUNE SORTE, EXPRESSE OU
+   IMPLICITE, NOTAMMENT DE QUALITÉ MARCHANDE, D'ADÉQUATION À UN USAGE PARTICULIER
+   OU D'ABSENCE DE CONTREFAÇON.
+
+6. Limitation de responsabilité
+   DANS LES LIMITES PERMISES PAR LA LOI, L'AUTEUR NE PEUT ÊTRE TENU RESPONSABLE
+   D'AUCUN DOMMAGE, DIRECT OU INDIRECT (Y COMPRIS LA PERTE DE DONNÉES OU DE CODE),
+   RÉSULTANT DE L'UTILISATION OU DE L'IMPOSSIBILITÉ D'UTILISER LE LOGICIEL.
+
+7. Fin de la licence
+   Cette licence prend fin automatiquement si vous ne respectez pas ses
+   conditions. Vous devez alors cesser d'utiliser le Logiciel et le supprimer.
+
+L'auteur peut modifier ces conditions pour les versions futures. Chaque version
+reste régie par la licence qui l'accompagne.
