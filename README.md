@@ -29,6 +29,7 @@
 - [Configuration requise](#configuration-requise)
 - [Installation](#installation)
 - [Premier lancement et compte Claude](#premier-lancement-et-compte-claude)
+- [Abonnement, quotas et coûts](#abonnement-quotas-et-coûts)
 - [Prise en main](#prise-en-main)
 - [Les missions en détail](#les-missions-en-détail)
 - [Raccourcis clavier](#raccourcis-clavier)
@@ -118,6 +119,8 @@ Constellation est une application native (Swift et SwiftUI). Elle n'a pas de ser
 | **Pour les missions** | [Claude Code](https://docs.anthropic.com/claude-code), connecté à un abonnement Claude (Pro ou Max) ou à un compte Anthropic Console |
 | **Facultatif** | Git (missions isolées, panneau Git), [`gh`](https://cli.github.com) (GitHub), les autres CLI que tu veux utiliser comme consoles |
 
+Au tout début du lancement, Constellation vérifie que le système est bien macOS 14 ou plus récent. Sinon, elle explique pourquoi et se ferme, sans lire ni modifier aucune donnée.
+
 ## Installation
 
 1. Ouvre la page [**Releases**](https://github.com/r97sgkjtdh-ops/constellation/releases/latest) et télécharge `Constellation-<version>.zip`.
@@ -172,6 +175,24 @@ Constellation utilise **le compte Claude de la personne qui l'utilise**, jamais 
 
 Un assistant te propose ensuite l'apparence, un premier projet et ton agent par défaut.
 
+## Abonnement, quotas et coûts
+
+**Constellation ne vend pas de crédits et ne facture pas les appels aux modèles.** Elle lance les CLI avec la connexion configurée pour chacun d'eux. L'utilisation du modèle dépend donc de ton compte auprès du fournisseur.
+
+| Connexion utilisée par Claude Code | Ce que consomme une mission |
+|---|---|
+| Abonnement **Claude Pro ou Max** | Les quotas inclus dans ton abonnement. Un montant estimé en dollars dans un journal ne correspond pas automatiquement à une somme débitée en plus. |
+| Compte **Anthropic Console / clé API** | Une utilisation facturée sur le compte API associé, selon sa tarification et ses crédits. |
+| Usage supplémentaire payant activé | Des frais supplémentaires peuvent s'appliquer selon les réglages et limites de ton compte. |
+
+Le coordinateur, les sous-agents, les revues et les corrections utilisent tous le modèle. Plusieurs agents ne donnent pas plusieurs abonnements : ils peuvent consommer les limites du même compte.
+
+**Lire les montants correctement.** Claude Code peut calculer une estimation monétaire à partir des tokens utilisés. Les valeurs de 3,55 $ et 0,14 $ rapportées lors d'essais du projet étaient des montants remontés par le CLI, pas des débits bancaires vérifiés ni une promesse de prix par mission. Pour un abonnement, surveille les limites d'usage ; pour l'API, consulte la facturation du fournisseur.
+
+Une clé `ANTHROPIC_API_KEY` configurée peut faire utiliser la facturation API plutôt que l'abonnement. Avoir Pro ne suffit donc pas à identifier la connexion effectivement utilisée. Vérifie le compte dans Claude Code et les options d'usage supplémentaire de ton abonnement. Les limites de tâches, de durée et de parallélisme de Constellation ne sont pas un plafond garanti de facturation.
+
+Références : [Claude Code avec Pro ou Max](https://support.claude.com/en/articles/11145838-use-claude-code-with-your-pro-or-max-plan) · [Comprendre les estimations de coût](https://code.claude.com/docs/en/costs).
+
 ## Prise en main
 
 1. **Ouvre un projet** : ⌘O, ou glisse un dossier sur l'accueil. Un projet correspond à un dossier de ton disque.
@@ -181,6 +202,28 @@ Un assistant te propose ensuite l'apparence, un premier projet et ton agent par 
 5. **Suis l'avancement** : la carte du coordinateur et ses tâches s'affichent sur le tableau. La **carte de mission** (touche X) montre l'ensemble.
 
 Le tutoriel intégré (⌘?) explique chaque bouton.
+
+### Exemple de demande pour une première mission
+
+Commence avec un petit projet jetable et le mode **assisté**, pour relire le plan avant l'exécution. Voici un exemple à adapter aux fichiers et aux commandes réellement présents dans ton projet :
+
+```text
+Objectif : corriger les fonctions addition et multiplication de ce projet Python.
+
+Périmètre : addition.py et multiplication.py.
+Résultat attendu : les opérations fonctionnent aussi avec zéro et les nombres négatifs.
+Contraintes : ne supprime aucun test existant et ne change pas les résultats attendus
+pour masquer un défaut. N'ajoute aucune dépendance.
+
+Répartis les corrections en tâches distinctes. Chaque tâche doit avoir son contrôle.
+Après intégration, exécute python3 -m unittest -v sur l'ensemble du projet.
+Dans la synthèse, liste les fichiers modifiés, les contrôles exécutés et leurs résultats.
+Si une information manque, pose une question au lieu de l'inventer.
+```
+
+Lis le plan proposé : les tâches, leur périmètre, leurs dépendances et leurs commandes de contrôle doivent correspondre à ta demande. Active la revue indépendante si tu souhaites une seconde lecture. Une fois la mission terminée, examine le diff Git et les sorties des contrôles avant de conserver le résultat.
+
+Une mission « Réussie et vérifiée » signifie que ses contrôles ont réussi sur l'état testé. Cela ne garantit pas l'absence de bugs non couverts par ces contrôles.
 
 ## Les missions en détail
 
@@ -231,7 +274,7 @@ Par défaut, une mission est limitée à 4 sessions simultanées, 12 tâches, 3 
 - **Des états honnêtes.** « Réussie et vérifiée » exige que chaque tâche ait passé ses contrôles et que l'ensemble ait passé les siens. Une tâche que tu acceptes toi-même est affichée « Acceptée par toi », jamais « vérifiée ».
 - **Une annulation fiable.** Annuler arrête les sessions, les contrôles, les revues et l'intégration, avec toute l'arborescence de leurs processus.
 - **Aucun relancement caché.** Après une fermeture de l'app, les tâches en cours passent « à récupérer » et attendent une relance explicite.
-- **Des sessions allégées.** Les sessions d'une mission démarrent sans tes serveurs MCP ni tes skills, ce qui réduit fortement leur coût. Lors d'un essai réel, le coût est passé de 3,55 $ à 0,14 $.
+- **Des sessions allégées.** Les sessions d'une mission démarrent sans charger tes serveurs MCP ni tes skills, afin de limiter le contexte envoyé au modèle. Cela peut réduire la consommation de tokens ; le gain dépend de la tâche, du modèle et des corrections nécessaires. Les montants estimés par le CLI ne constituent pas une preuve de facturation : voir [Abonnement, quotas et coûts](#abonnement-quotas-et-coûts).
 
 ### Délégation en cascade
 Un sous-agent peut lui-même confier des sous-tâches. Constellation les valide dans un budget de profondeur (2 par défaut) et de nombre de tâches, les fait réaliser et contrôler, puis rend la main au parent avec leurs résultats pour qu'il consolide.
@@ -290,12 +333,10 @@ L'ancienne version est gardée dans `~/Library/Application Support/Constellation
 
 | Emplacement | Contenu |
 |---|---|
-| `~/Library/Application Support/Atelier/` | Tableaux, missions, patchs, transferts, journaux de mise à jour |
-| `~/Library/Preferences/local.atelier.plist` | Réglages |
-| `<ton projet>/.atelier/` | Résumés de handoff, copies des changements annulés |
+| `~/Library/Application Support/Constellation/` | Tableaux, missions, patchs, transferts, journaux de mise à jour |
+| `~/Library/Preferences/com.vel.constellation.plist` | Réglages |
+| `<ton projet>/.constellation/` | Résumés de handoff, copies des changements annulés |
 | `~/Library/Application Support/Constellation-sauvegardes/` | Anciennes versions de l'app et copies de tes données, faites à chaque installation |
-
-> Le dossier de données et l'identifiant `local.atelier` gardent l'ancien nom du projet, pour que les données existantes restent lisibles.
 
 ## Désinstallation
 
@@ -304,9 +345,9 @@ L'ancienne version est gardée dans `~/Library/Application Support/Constellation
 3. Pour effacer aussi tes données et tes réglages (c'est **définitif**) :
 
 ```bash
-rm -rf ~/Library/Application\ Support/Atelier
+rm -rf ~/Library/Application\ Support/Constellation
 rm -rf ~/Library/Application\ Support/Constellation-sauvegardes
-defaults delete local.atelier
+defaults delete com.vel.constellation
 ```
 
 Claude Code et les autres CLI ne sont pas touchés : ils se désinstallent séparément.
