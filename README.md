@@ -97,6 +97,7 @@ Constellation est une application native (Swift et SwiftUI). Elle n'a pas de ser
 
 ### Consommation
 - Tokens par jour, par modèle et par projet, lus dans les journaux locaux de Claude Code et de Codex, en graphique ou en tableau.
+- **Quota de l'abonnement Claude** dans la barre du haut : part utilisée de la session de 5 h et de la semaine, avec l'heure de réinitialisation ; au survol ou dans la page Consommation, la part restante. Les chiffres viennent de Claude Code lui-même et s'actualisent quand une console Claude Code du tableau reçoit une réponse.
 
 <p align="center">
   <img src="docs/images/usage.png" width="720" alt="Page Consommation">
@@ -170,7 +171,7 @@ Constellation utilise **le compte Claude de la personne qui l'utilise**, jamais 
 - La connexion passe par `claude auth login` et se fait **dans ton navigateur**. Si la page affiche un code, colle-le dans Constellation.
 - Constellation ne voit ni ton mot de passe ni tes jetons : ils restent gérés par Claude Code.
 - Si tu es déjà connecté à Claude Code dans le terminal, Constellation le reconnaît et ouvre directement le tableau.
-- **Pour te déconnecter**, va dans **Réglages › Comptes › Se déconnecter…** ou dans le menu **Constellation › Se déconnecter de Claude…**. Cela déconnecte aussi Claude Code dans le terminal ; tes tableaux et tes missions sont conservés.
+- **Pour te déconnecter**, clique sur l'icône de compte en haut à droite, à côté des réglages, puis **Se déconnecter de Claude…**. Tu peux aussi passer par **Réglages › Comptes** ou par le menu **Constellation › Se déconnecter de Claude…**. Cela déconnecte aussi Claude Code dans le terminal ; tes tableaux et tes missions sont conservés.
 - **Pour changer de compte**, déconnecte-toi, puis reconnecte-toi.
 
 Un assistant te propose ensuite l'apparence, un premier projet et ton agent par défaut.
