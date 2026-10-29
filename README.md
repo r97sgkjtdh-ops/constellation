@@ -97,6 +97,7 @@ Constellation est une application native (Swift et SwiftUI). Elle n'a pas de ser
 
 ### Consommation
 - Tokens par jour, par modèle et par projet, lus dans les journaux locaux de Claude Code et de Codex, en graphique ou en tableau.
+- **Barres de progression** pour l'agent de chaque console Claude Code et pour chacun de ses sous-agents : la liste de tâches de l'agent (2/5 tâches et la tâche en cours) quand il en tient une, sinon le nombre d'étapes (chaque outil utilisé) et le temps passé. Sans liste de tâches, la barre est une estimation : elle n'arrive au bout qu'une fois le travail fini.
 - **Quota de l'abonnement Claude** dans la barre du haut : part utilisée de la session de 5 h et de la semaine, avec l'heure de réinitialisation ; au survol ou dans la page Consommation, la part restante. Les chiffres viennent de Claude Code lui-même et s'actualisent quand une console Claude Code du tableau reçoit une réponse.
 
 <p align="center">
