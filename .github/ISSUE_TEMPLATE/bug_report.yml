@@ -40,5 +40,5 @@ body:
   - type: textarea
     id: details
     attributes:
-      label: Captures ou messages d'erreur
-      description: Retire toute information personnelle (chemins, adresses, jetons) avant de les coller.
+      label: Captures, messages d'erreur ou diagnostic
+      description: Le menu Aide › Exporter un diagnostic… crée une archive à glisser ici. Retire toute information personnelle (chemins, adresses, jetons) des captures avant de les coller.

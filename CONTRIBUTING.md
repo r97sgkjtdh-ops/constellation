@@ -9,7 +9,8 @@ Ouvre une issue avec le formulaire **Signaler un bug**. Plus le signalement est 
 - la version de Constellation (Réglages › À propos) et celle de macOS ;
 - les étapes pour reproduire le problème ;
 - ce que tu attendais, et ce qui s'est passé ;
-- une capture ou un message d'erreur, sans information personnelle (chemins, adresses, jetons).
+- une capture ou un message d'erreur, sans information personnelle (chemins, adresses, jetons) ;
+- si possible, le diagnostic créé par le menu **Aide › Exporter un diagnostic…** (rien n'est envoyé automatiquement, relis-le avant de le joindre).
 
 Avant d'ouvrir une issue, jette un œil à la section [Dépannage](README.md#dépannage) du README et aux issues existantes.
 

@@ -11,7 +11,7 @@
 
 <p align="center">
   <img alt="macOS 14 ou plus récent" src="https://img.shields.io/badge/macOS-14%2B-black?logo=apple">
-  <img alt="Apple Silicon" src="https://img.shields.io/badge/Apple%20Silicon-arm64-555">
+  <img alt="Apple Silicon et Intel" src="https://img.shields.io/badge/Mac-Apple%20Silicon%20%7C%20Intel-555">
   <img alt="Licence propriétaire, usage gratuit" src="https://img.shields.io/badge/licence-propri%C3%A9taire%2C%20gratuite-lightgrey">
   <a href="https://github.com/r97sgkjtdh-ops/constellation/releases/latest"><img alt="Dernière version" src="https://img.shields.io/github/v/release/r97sgkjtdh-ops/constellation?label=version"></a>
 </p>
@@ -115,7 +115,7 @@ Constellation est une application native (Swift et SwiftUI). Elle n'a pas de ser
 | | |
 |---|---|
 | **Système** | macOS 14 Sonoma ou plus récent |
-| **Processeur** | Apple Silicon (M1 ou plus récent). Les versions publiées sont compilées pour arm64 seulement. |
+| **Processeur** | Apple Silicon ou Intel : les versions publiées sont universelles. |
 | **Pour les missions** | [Claude Code](https://docs.anthropic.com/claude-code), connecté à un abonnement Claude (Pro ou Max) ou à un compte Anthropic Console |
 | **Facultatif** | Git (missions isolées, panneau Git), [`gh`](https://cli.github.com) (GitHub), les autres CLI que tu veux utiliser comme consoles |
 
@@ -387,6 +387,12 @@ Autorise le micro et la reconnaissance vocale dans **Réglages Système › Conf
 </details>
 
 <details>
+<summary><strong>Joindre un diagnostic à un signalement</strong></summary>
+
+Menu **Aide › Exporter un diagnostic…** : Constellation crée une archive `.zip` à l'endroit que tu choisis. Elle contient la version de l'app et de macOS, le modèle du Mac, les réglages de l'app (les clés et jetons sont masqués), le journal de la session en cours, la liste des fichiers de données (sans leur contenu) et les journaux de mise à jour. Le chemin de ton dossier personnel et ton nom d'utilisateur sont remplacés. **Rien n'est envoyé** : relis l'archive, puis joins-la à ton issue si tu le souhaites.
+</details>
+
+<details>
 <summary><strong>Revenir à la version précédente</strong></summary>
 
 Ouvre le dossier daté le plus récent dans `~/Library/Application Support/Constellation-sauvegardes/` et suis son fichier `RESTAURER.txt`.
@@ -398,14 +404,13 @@ Constellation est en développement actif. Les principales limites :
 
 - **Les missions ne fonctionnent qu'avec Claude Code.** Les autres CLI s'utilisent comme consoles, mais n'ont pas encore d'adaptateur pour les missions.
 - **L'app n'est ni signée par un développeur Apple ni notarisée.** Il faut l'autoriser au premier lancement.
-- **Elle tourne sur Apple Silicon uniquement**, pour les versions publiées.
 - **Certaines fonctions sont encore peu éprouvées en conditions réelles** : la délégation en cascade, les corrections et l'annulation.
 - **L'isolation des worktrees ne couvre pas tout.** Les dépendances ignorées par Git (`node_modules`, `.venv`) sont partagées par lien symbolique, et les bases de données, ports et services ne sont pas isolés.
 - **Les noms d'exécutables de certains CLI du catalogue n'ont pas été vérifiés.** Pour ceux qui manquent, crée un agent personnalisé.
 
 ## Signaler un problème
 
-- **Un bug ou une idée** : ouvre une [issue](https://github.com/r97sgkjtdh-ops/constellation/issues) avec ta version de macOS, la version de Constellation (Réglages › À propos), les étapes pour reproduire, et ce que tu attendais.
+- **Un bug ou une idée** : ouvre une [issue](https://github.com/r97sgkjtdh-ops/constellation/issues) avec ta version de macOS, la version de Constellation (Réglages › À propos), les étapes pour reproduire, et ce que tu attendais. Pour un bug, joins si possible un diagnostic (menu **Aide › Exporter un diagnostic…**).
 - **Une faille de sécurité** : ne la publie pas dans une issue publique. Utilise le signalement privé de GitHub (onglet **Security › Report a vulnerability**), comme l’explique la [politique de sécurité](SECURITY.md).
 
 Ce dépôt ne contient que la documentation et les versions publiées : le code source n'y est pas.
