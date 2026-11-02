@@ -5,8 +5,8 @@
 <h1 align="center">Constellation</h1>
 
 <p align="center">
-  <strong>Un espace de travail pour macOS qui réunit tes agents de code sur un même tableau,<br>
-  et confie une demande à un coordinateur qui la répartit, fait contrôler chaque résultat et livre un travail vérifié.</strong>
+  <strong>Un espace de travail pour macOS qui réunit tes agents IA sur un même tableau,<br>
+  pour coder, chercher, écrire ou analyser, et confie une demande à un coordinateur qui la répartit et en contrôle le résultat.</strong>
 </p>
 
 <p align="center">
@@ -43,9 +43,16 @@
 
 ## Présentation
 
-Les agents de code en ligne de commande (Claude Code, Codex, Gemini CLI, OpenCode…) sont puissants, mais on les utilise chacun dans un terminal, sans vue d'ensemble. Constellation les pose sur un **tableau infini**, à côté de tes notes, de tes fichiers, de ton navigateur et de ton dépôt Git, et te permet de les faire travailler ensemble.
+Les agents IA en ligne de commande (Claude Code, Codex, Gemini CLI, OpenCode…) sont puissants et ne servent pas qu'à programmer : chercher sur le web et citer ses sources, rédiger ou relire un texte, traduire, analyser des données, organiser un plan. Mais on les utilise chacun dans un terminal, sans vue d'ensemble. Constellation les pose sur un **tableau infini**, à côté de tes notes, de tes fichiers, de ton navigateur et de ton dépôt Git, et te permet de les faire travailler ensemble.
 
-Sa fonction centrale est la **mission**. Tu écris une demande, un coordinateur la découpe en tâches, des sous-agents les réalisent, et **Constellation exécute elle-même les commandes de contrôle** avant de déclarer quoi que ce soit réussi. Ce qu'affirme un agent ne suffit jamais : seule une preuve compte.
+Sa fonction centrale est la **mission**, pour tous les sujets. Tu écris une demande, un coordinateur la découpe en tâches, des sous-agents les réalisent, et le résultat est contrôlé avant d'être déclaré réussi. Les agents peuvent chercher sur le web (case cochée par défaut pour un nouveau dossier, décochée pour un projet existant) et écrire des fichiers (texte, tableur, page, code) dans le dossier de travail. Cette version ne génère pas d'images ni de vidéos et n'utilise pas de connecteurs MCP dans les missions.
+
+La preuve a trois niveaux, affichés tels quels :
+- **Vérifiée par commandes** : Constellation a exécuté elle-même des commandes de contrôle, et leur résultat prouve le travail. C'est le niveau le plus solide.
+- **Validée par relecture** : quand aucune commande ne peut prouver le résultat (un texte, une recherche), une session séparée juge chaque critère.
+- **Vérifiée par commandes et relue** : les commandes ont réussi et la revue indépendante, activée par défaut (tu peux la décocher à la création d'une mission), a aussi approuvé le travail.
+
+Une relecture réduit les erreurs, mais ne garantit rien : relis toi-même ce qui compte.
 
 Constellation est une application native (Swift et SwiftUI). Elle n'a pas de serveur ni de compte à elle : elle pilote les outils installés sur ton Mac, avec **tes propres comptes**.
 
@@ -75,7 +82,7 @@ Constellation est une application native (Swift et SwiftUI). Elle n'a pas de ser
 ### Missions
 - Un coordinateur en lecture seule propose un plan, validé avant toute exécution.
 - Des sous-agents travaillent dans ton dossier ou chacun dans un **worktree Git** isolé.
-- Des contrôles exécutés par Constellation, des corrections rédigées par le coordinateur et une revue indépendante (option).
+- Des contrôles exécutés par Constellation, des corrections rédigées par le coordinateur et une revue indépendante, activée par défaut.
 - Une intégration tout ou rien, puis le contrôle de l'ensemble.
 - Une délégation en cascade, dans des budgets que tu fixes.
 - Détails dans [Les missions en détail](#les-missions-en-détail).
@@ -225,7 +232,7 @@ Dans la synthèse, liste les fichiers modifiés, les contrôles exécutés et le
 Si une information manque, pose une question au lieu de l'inventer.
 ```
 
-Lis le plan proposé : les tâches, leur périmètre, leurs dépendances et leurs commandes de contrôle doivent correspondre à ta demande. Active la revue indépendante si tu souhaites une seconde lecture. Une fois la mission terminée, examine le diff Git et les sorties des contrôles avant de conserver le résultat.
+Lis le plan proposé : les tâches, leur périmètre, leurs dépendances et leurs commandes de contrôle doivent correspondre à ta demande. La revue indépendante est active par défaut : décoche-la seulement pour une petite mission bien couverte par ses tests. Une fois la mission terminée, examine le diff Git et les sorties des contrôles avant de conserver le résultat.
 
 Une mission « Réussie et vérifiée » signifie que ses contrôles ont réussi sur l'état testé. Cela ne garantit pas l'absence de bugs non couverts par ces contrôles.
 
@@ -246,6 +253,8 @@ flowchart LR
     V2 -->|échec| F2[Correction] --> T2
     V1 -->|réussite| R1[Revue indépendante]
     V2 -->|réussite| R2[Revue indépendante]
+    R1 -->|problème relevé| F1
+    R2 -->|problème relevé| F2
     R1 --> I[Intégration]
     R2 --> I
     I --> FC{"Contrôles de l'ensemble"}
@@ -257,15 +266,19 @@ flowchart LR
 1. **Plan.** Un coordinateur Claude Code, en lecture seule, étudie le projet et propose des tâches, avec leurs dépendances, leurs fichiers et leurs contrôles. Constellation valide ce plan (clés, dépendances, absence de cycles, nombre de tâches) avant toute exécution.
 2. **Exécution.** Chaque tâche est confiée à une session Claude Code séparée, qui reçoit la demande d'origine, ses instructions, ses fichiers, les résultats de ses prérequis et les contrôles qui la jugeront.
 3. **Contrôles.** Constellation exécute elle-même les commandes de contrôle. En cas d'échec, le coordinateur rédige une correction à partir de la sortie réelle, et la tâche la reçoit dans la même conversation.
-4. **Revue (option).** Une session indépendante, sans mémoire du travail, relit chaque changement dont les contrôles ont réussi.
+4. **Revue (activée par défaut).** Une session indépendante, sans mémoire du travail, relit chaque changement dont les contrôles ont réussi.
 5. **Intégration et contrôle final.** Les contributions vérifiées sont intégrées, puis les contrôles de l'ensemble sont lancés. S'ils échouent, une tâche de correction est créée.
 6. **Synthèse.** Elle dit exactement ce qui a été prouvé, et ce qui ne l'a pas été.
 
 ### Modes
-- **Assisté** : tu relis et modifies le plan, puis chaque correction, avant leur envoi.
+- **Assisté** : tu relis et modifies le plan, puis tu le valides. Les sous-agents et les corrections partent ensuite seuls, dans les limites fixées. Seuls t'attendent les questions des agents, les conflits, ce qui ne peut pas être prouvé et les commandes inconnues ; avec le web, toute commande hors de ton plan.
 - **Délégué** : tout part automatiquement, dans les limites que tu fixes.
 
-Par défaut, une mission est limitée à 4 sessions simultanées, 12 tâches, 3 corrections par tâche et 20 minutes. Ces limites se règlent dans Nouvelle mission › Réglages avancés, où l'on choisit aussi les modèles du coordinateur et des tâches.
+Par défaut, une mission est limitée à 4 sessions simultanées, 12 tâches, 3 corrections par tâche, 20 minutes par session et 80 appels à Claude (sessions, relectures, corrections rédigées, plan et synthèse). À cette limite, elle se suspend : ce qui tourne finit, puis rien ne repart tant que tu n'as pas décoché « Suspendre », ce qui lui accorde 40 appels de plus. Ces limites se règlent dans Nouvelle mission › Réglages avancés, où l'on choisit aussi les modèles du coordinateur et des tâches. Par défaut (« Selon la tâche »), le coordinateur choisit pour chaque tâche Haiku, Sonnet ou Opus, le moins cher qui suffit ; ce choix reste indicatif et tu peux imposer un modèle. Fable n'est utilisé que si tu le choisis.
+
+Le coût affiché est un minimum (« au moins 1,20 $ ») : une session interrompue ne rapporte pas le sien.
+
+Avec le web, une page piégée peut tromper un agent : il pourrait modifier des fichiers, envoyer leur contenu vers un site, ou glisser du code dans une commande que tu as approuvée. Seules les commandes de ton plan s'exécutent alors sans te demander.
 
 ### Isolation
 - **Dossier partagé** : les tâches travaillent dans ton dossier. Celles qui déclarent les mêmes fichiers passent l'une après l'autre.
@@ -274,14 +287,14 @@ Par défaut, une mission est limitée à 4 sessions simultanées, 12 tâches, 3 
 
 ### Garanties
 - **Des preuves liées à l'état testé.** Chaque preuve est liée au contenu exact des fichiers contrôlés : révision, modifications et fichiers non suivis. Si ce contenu change avant l'intégration, les contrôles sont rejoués.
-- **Des autorisations exactes.** Les commandes de test et de build connues s'exécutent seules. Les autres attendent ton accord, et une commande modifiée n'est plus approuvée.
-- **Des états honnêtes.** « Réussie et vérifiée » exige que chaque tâche ait passé ses contrôles et que l'ensemble ait passé les siens. Une tâche que tu acceptes toi-même est affichée « Acceptée par toi », jamais « vérifiée ».
+- **Des autorisations exactes.** Les commandes de test et de build connues s'exécutent seules, sauf avec le web : seules les commandes de ton plan validé passent alors sans te demander (en mode délégué, aucune, à moins d'avoir coché l'autorisation). Les autres attendent ton accord, et une commande modifiée n'est plus approuvée.
+- **Des états honnêtes.** « Réussie et vérifiée » exige que chaque tâche ait passé ses contrôles et que l'ensemble ait passé les siens. Une mission jugée par une relecture est affichée « Réussie, validée par relecture », jamais « vérifiée » ; commandes et relecture ensemble donnent « Réussie, vérifiée et relue ». Une tâche que tu acceptes toi-même est affichée « Acceptée par toi », jamais « vérifiée ».
 - **Une annulation fiable.** Annuler arrête les sessions, les contrôles, les revues et l'intégration, avec toute l'arborescence de leurs processus.
 - **Aucun relancement caché.** Après une fermeture de l'app, les tâches en cours passent « à récupérer » et attendent une relance explicite.
 - **Des sessions allégées.** Les sessions d'une mission démarrent sans charger tes serveurs MCP ni tes skills, afin de limiter le contexte envoyé au modèle. Cela peut réduire la consommation de tokens ; le gain dépend de la tâche, du modèle et des corrections nécessaires. Les montants estimés par le CLI ne constituent pas une preuve de facturation : voir [Abonnement, quotas et coûts](#abonnement-quotas-et-coûts).
 
 ### Délégation en cascade
-Un sous-agent peut lui-même confier des sous-tâches. Constellation les valide dans un budget de profondeur (2 par défaut) et de nombre de tâches, les fait réaliser et contrôler, puis rend la main au parent avec leurs résultats pour qu'il consolide.
+Un agent qui a besoin d'aide crée un sous-agent, qui peut créer le sien : chacun apparaît sur le tableau. Constellation les valide dans un budget de niveaux (4 par défaut dans Nouvelle mission, 6 au plus) et de nombre de tâches, les fait réaliser et contrôler, puis rend la main au parent avec leurs résultats pour qu'il consolide. En mode assisté, tu valides le plan de départ ; les sous-agents et les corrections suivent sans nouvelle question, et l'outil de sous-agents natif de Claude Code est désactivé dans les missions pour que rien ne se passe hors du tableau.
 
 ### Carte de mission
 
