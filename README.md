@@ -1,3 +1,5 @@
+<p align="center">Français · <a href="README.en.md">English</a></p>
+
 <p align="center">
   <img src="docs/images/icon.png" width="128" alt="Icône de Constellation">
 </p>
@@ -17,8 +19,14 @@
 </p>
 
 <p align="center">
-  <img src="docs/images/board-mission.png" alt="Une mission sur le tableau : la carte du coordinateur et ses tâches">
+  <img src="docs/images/home.png" alt="L'accueil : plusieurs projets, le bouton Nouvelle mission et le fond en réseau">
 </p>
+
+<p align="center">
+  <img src="docs/images/board-mission.png" alt="Une mission sur le tableau : la carte du coordinateur, des sous-agents sur plusieurs niveaux et les jauges de chaque carte">
+</p>
+
+<p align="center"><sub>Captures de l'app, avec des données d'exemple.</sub></p>
 
 ---
 
@@ -52,18 +60,22 @@ La preuve a trois niveaux, affichés tels quels :
 - **Validée par relecture** : quand aucune commande ne peut prouver le résultat (un texte, une recherche), une session séparée juge chaque critère.
 - **Vérifiée par commandes et relue** : les commandes ont réussi et la revue indépendante, activée par défaut (tu peux la décocher à la création d'une mission), a aussi approuvé le travail.
 
-Une relecture réduit les erreurs, mais ne garantit rien : relis toi-même ce qui compte.
+Une relecture réduit les erreurs, mais ne garantit rien : relis toi-même ce qui compte. Elle consomme aussi plus de quota, car elle ajoute des sessions.
 
 Constellation est une application native (Swift et SwiftUI). Elle n'a pas de serveur ni de compte à elle : elle pilote les outils installés sur ton Mac, avec **tes propres comptes**.
 
 ## Fonctionnalités
 
 ### Tableau et espaces
-- Tableau infini avec zoom de 20 à 300 %, sélection multiple, repères d'alignement, copier-coller et annulation sur 80 étapes.
+- Tableau infini avec zoom de 20 à 300 % (paliers de ×1,25 jusqu'à 100 %), sélection multiple, repères d'alignement, copier-coller et annulation sur 80 étapes.
 - Projets reliés à un dossier, et espaces en onglets : les consoles continuent de tourner en arrière-plan.
 - Sauvegarde automatique, version précédente, instantanés horaires et archive.
 - Notes colorées, checklists, kanbans, calendrier, formes et flèches au rendu dessiné à la main, stylo et gomme.
 - Images annotables, et fichiers ou dossiers déposés depuis le Finder.
+- **Se déplacer sur le tableau** : deux doigts ou la molette le font glisser dans tous les sens, et une carte ne défile qu'après un clic dans la carte. Le pincement et ⌘ + molette zooment autour du pointeur ; le glisser au clic droit déplace aussi le tableau, et un léger rebond marque les bords. Les boutons + et − zooment par paliers.
+- **Fond vivant** : un réseau animé en arrière-plan donne vie à l'accueil et au tableau. « Réduire les animations » le fige.
+- **Tâches de mission déplaçables** : sur le tableau, glisse les tâches d'une mission (et leurs sous-agents) pour les ranger comme tu veux. Elles suivent la carte du coordinateur, et un clic droit les remet en place automatiquement.
+- **Barres de progression** pour l'agent de chaque console Claude Code et pour chacun de ses sous-agents : la liste de tâches de l'agent (2/5 tâches et la tâche en cours) quand il en tient une, sinon le nombre d'étapes (chaque outil utilisé) et le temps passé. Sans liste de tâches, la barre est une estimation : elle n'arrive au bout qu'une fois le travail fini.
 
 ### Consoles et agents
 - Vrais terminaux (PTY) : Ctrl-C, interfaces en plein écran, couleurs 256 et truecolor, 10 000 lignes d'historique.
@@ -85,6 +97,9 @@ Constellation est une application native (Swift et SwiftUI). Elle n'a pas de ser
 - Des contrôles exécutés par Constellation, des corrections rédigées par le coordinateur et une revue indépendante, activée par défaut.
 - Une intégration tout ou rien, puis le contrôle de l'ensemble.
 - Une délégation en cascade, dans des budgets que tu fixes.
+- **Nouvelle mission** se lance depuis l'accueil : Constellation crée alors un dossier dans `~/Documents/Constellation` (avec un suffixe numérique si le nom est pris). Git reste discret : le choix de branche et d'isolation n'apparaît que dans un dépôt Git.
+- Des **livrables** : un clic ouvre seulement un fichier ordinaire, non exécutable, d'un type de document ; sinon il est montré dans le Finder.
+- **Missions robustes** : un agent qui plante, renvoie une erreur ou dépasse son temps est relancé tout seul (2 essais automatiques, dans sa conversation quand elle est connue) pendant que les autres terminent leur travail. « Reprendre » relance les tâches interrompues par la fermeture de Constellation, et une tâche bloquée repart dès que la tâche dont elle dépend a réussi.
 - Détails dans [Les missions en détail](#les-missions-en-détail).
 
 ### Carte de mission
@@ -104,13 +119,10 @@ Constellation est une application native (Swift et SwiftUI). Elle n'a pas de ser
 
 ### Consommation
 - Tokens par jour, par modèle et par projet, lus dans les journaux locaux de Claude Code et de Codex, en graphique ou en tableau.
-- **Missions robustes** : un agent qui plante, renvoie une erreur ou dépasse son temps est relancé tout seul (2 essais automatiques, dans sa conversation quand elle est connue) pendant que les autres terminent leur travail. « Reprendre » relance les tâches interrompues par la fermeture de Constellation, et une tâche bloquée repart dès que la tâche dont elle dépend a réussi.
-- **Tâches de mission déplaçables** : sur le tableau, glisse les tâches d'une mission (et leurs sous-agents) pour les ranger comme tu veux. Elles suivent la carte du coordinateur, et un clic droit les remet en place automatiquement.
-- **Barres de progression** pour l'agent de chaque console Claude Code et pour chacun de ses sous-agents : la liste de tâches de l'agent (2/5 tâches et la tâche en cours) quand il en tient une, sinon le nombre d'étapes (chaque outil utilisé) et le temps passé. Sans liste de tâches, la barre est une estimation : elle n'arrive au bout qu'une fois le travail fini.
 - **Quota de l'abonnement Claude** dans la barre du haut : part utilisée de la session de 5 h et de la semaine, avec l'heure de réinitialisation ; au survol ou dans la page Consommation, la part restante. Les chiffres viennent de Claude Code lui-même et s'actualisent quand une console Claude Code du tableau reçoit une réponse.
 
 <p align="center">
-  <img src="docs/images/usage.png" width="720" alt="Page Consommation">
+  <img src="docs/images/usage.png" width="720" alt="Page Consommation : tokens par jour, par modèle et par projet">
 </p>
 
 ### Voix
@@ -209,7 +221,7 @@ Références : [Claude Code avec Pro ou Max](https://support.claude.com/en/artic
 1. **Ouvre un projet** : ⌘O, ou glisse un dossier sur l'accueil. Un projet correspond à un dossier de ton disque.
 2. **Ajoute une console** : clic droit sur le tableau, ou ⌘K puis « crée 2 agents Claude ». Chaque console est un vrai terminal dans le dossier du projet.
 3. **Parle à tes agents** : ⌘K ouvre la barre de commande. `@nom consigne` envoie un message à une console, `@groupe consigne` à toute une équipe.
-4. **Confie une mission** : bouton **Mission** (la cible) dans la barre de gauche, ou « Confier une mission » sur un tableau vide. Décris le résultat attendu et les commandes de contrôle (par exemple `swift test` ou `npm test`), choisis le mode, puis lance.
+4. **Confie une mission** : bouton **Nouvelle mission** de l'accueil (sans projet, dans un nouveau dossier), bouton **Mission** (la cible) dans la barre de gauche, ou « Confier une mission » sur un tableau vide. Décris le résultat attendu et les commandes de contrôle (par exemple `swift test` ou `npm test`), choisis le mode, puis lance.
 5. **Suis l'avancement** : la carte du coordinateur et ses tâches s'affichent sur le tableau. La **carte de mission** (touche X) montre l'ensemble.
 
 Le tutoriel intégré (⌘?) explique chaque bouton.
@@ -274,7 +286,7 @@ flowchart LR
 - **Assisté** : tu relis et modifies le plan, puis tu le valides. Les sous-agents et les corrections partent ensuite seuls, dans les limites fixées. Seuls t'attendent les questions des agents, les conflits, ce qui ne peut pas être prouvé et les commandes inconnues ; avec le web, toute commande hors de ton plan.
 - **Délégué** : tout part automatiquement, dans les limites que tu fixes.
 
-Par défaut, une mission est limitée à 4 sessions simultanées, 12 tâches, 3 corrections par tâche, 20 minutes par session et 80 appels à Claude (sessions, relectures, corrections rédigées, plan et synthèse). À cette limite, elle se suspend : ce qui tourne finit, puis rien ne repart tant que tu n'as pas décoché « Suspendre », ce qui lui accorde 40 appels de plus. Ces limites se règlent dans Nouvelle mission › Réglages avancés, où l'on choisit aussi les modèles du coordinateur et des tâches. Par défaut (« Selon la tâche »), le coordinateur choisit pour chaque tâche Haiku, Sonnet ou Opus, le moins cher qui suffit ; ce choix reste indicatif et tu peux imposer un modèle. Fable n'est utilisé que si tu le choisis.
+Par défaut, une mission est limitée à 4 sessions simultanées, 12 tâches, 3 corrections par tâche, 20 minutes par session et 80 appels à Claude (sessions, relectures, corrections rédigées, plan et synthèse). À cette limite, elle se suspend : ce qui tourne finit, puis rien ne repart tant que tu n'as pas décoché « Suspendre », ce qui lui accorde 40 appels de plus. Ces limites se règlent dans Nouvelle mission › Réglages avancés, où l'on choisit aussi les modèles du coordinateur et des tâches. Par défaut (« Selon la tâche »), le coordinateur choisit pour chaque tâche Haiku, Sonnet ou Opus, le moins cher qui suffit ; ce choix reste indicatif et tu peux imposer un modèle. Fable n'est utilisé que si tu le choisis et que ton accès est vérifié ; sinon Opus le remplace.
 
 Le coût affiché est un minimum (« au moins 1,20 $ ») : une session interrompue ne rapporte pas le sien.
 
@@ -419,9 +431,11 @@ Ouvre le dossier daté le plus récent dans `~/Library/Application Support/Const
 
 Constellation est en développement actif. Les principales limites :
 
+- **Pas encore de génération d'images ni de vidéos, ni de connecteurs MCP dans les missions.** Aucune date n'est promise.
 - **Les missions ne fonctionnent qu'avec Claude Code.** Les autres CLI s'utilisent comme consoles, mais n'ont pas encore d'adaptateur pour les missions.
 - **L'app n'est ni signée par un développeur Apple ni notarisée.** Il faut l'autoriser au premier lancement.
-- **Certaines fonctions sont encore peu éprouvées en conditions réelles** : la délégation en cascade, les corrections et l'annulation.
+- **Certaines fonctions sont encore peu éprouvées en conditions réelles** : la délégation en cascade, les corrections et l'annulation. Les tests automatisés ne couvrent ni le parcours complet de l'interface ni les vrais gestes sur le tableau (trackpad, molette, pincement).
+- **Le résultat des agents reste à vérifier par toi.** Une mission « vérifiée » l'est sur l'état testé, pas au-delà.
 - **L'isolation des worktrees ne couvre pas tout.** Les dépendances ignorées par Git (`node_modules`, `.venv`) sont partagées par lien symbolique, et les bases de données, ports et services ne sont pas isolés.
 - **Les noms d'exécutables de certains CLI du catalogue n'ont pas été vérifiés.** Pour ceux qui manquent, crée un agent personnalisé.
 

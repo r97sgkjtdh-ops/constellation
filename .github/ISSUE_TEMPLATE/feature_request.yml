@@ -1,21 +1,21 @@
-name: Proposer une idée
-description: Une fonctionnalité ou une amélioration.
+name: Proposer une idée / Suggest an idea
+description: Une fonctionnalité ou une amélioration. / A feature or an improvement.
 labels: ["amélioration"]
 body:
   - type: textarea
     id: problem
     attributes:
-      label: Le besoin
-      description: Ce que tu cherches à faire, et ce qui te gêne aujourd'hui.
+      label: Le besoin / The need
+      description: Ce que tu cherches à faire, et ce qui te gêne aujourd'hui. / What you are trying to do, and what gets in the way today.
     validations:
       required: true
   - type: textarea
     id: idea
     attributes:
-      label: Ce que tu proposes
+      label: Ce que tu proposes / What you suggest
     validations:
       required: true
   - type: textarea
     id: alternatives
     attributes:
-      label: Ce que tu as essayé à la place
+      label: Ce que tu as essayé à la place / What you tried instead

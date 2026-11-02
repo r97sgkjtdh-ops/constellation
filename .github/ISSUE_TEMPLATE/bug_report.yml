@@ -1,44 +1,50 @@
-name: Signaler un bug
-description: Quelque chose ne fonctionne pas comme prévu.
+name: Signaler un bug / Report a bug
+description: Quelque chose ne fonctionne pas comme prévu. / Something does not work as expected.
 labels: ["bug"]
 body:
   - type: markdown
     attributes:
       value: |
         Merci de prendre le temps de signaler ce problème. Une **faille de sécurité** ne se signale pas ici : utilise l'onglet Security › Report a vulnerability.
+
+        Thank you for taking the time to report this. A **security vulnerability** must not be reported here: use the Security › Report a vulnerability tab.
+
+        Tu peux écrire en français ou en anglais. / You can write in French or English.
   - type: input
     id: version
     attributes:
-      label: Version de Constellation
-      description: Réglages › À propos.
-      placeholder: "0.3.1"
+      label: Version de Constellation / Constellation version
+      description: Réglages › À propos. / Settings › About.
+      placeholder: "0.3.11"
     validations:
       required: true
   - type: input
     id: macos
     attributes:
-      label: Version de macOS et modèle de Mac
+      label: Version de macOS et modèle de Mac / macOS version and Mac model
       placeholder: "macOS 15.2, MacBook Air M2"
     validations:
       required: true
   - type: textarea
     id: steps
     attributes:
-      label: Étapes pour reproduire
+      label: Étapes pour reproduire / Steps to reproduce
       placeholder: |
-        1. Ouvre…
-        2. Clique sur…
+        1. Ouvre… / Open…
+        2. Clique sur… / Click…
         3. …
     validations:
       required: true
   - type: textarea
     id: expected
     attributes:
-      label: Ce que tu attendais, et ce qui s'est passé
+      label: Ce que tu attendais, et ce qui s'est passé / What you expected, and what happened
     validations:
       required: true
   - type: textarea
     id: details
     attributes:
-      label: Captures, messages d'erreur ou diagnostic
-      description: Le menu Aide › Exporter un diagnostic… crée une archive à glisser ici. Retire toute information personnelle (chemins, adresses, jetons) des captures avant de les coller.
+      label: Captures, messages d'erreur ou diagnostic / Screenshots, error messages or diagnostic
+      description: |
+        Le menu Aide › Exporter un diagnostic… crée une archive à glisser ici. Retire toute information personnelle (chemins, adresses, jetons) des captures avant de les coller.
+        The Help › Export Diagnostic… menu creates an archive to drop here. Remove any personal information (paths, addresses, tokens) from screenshots before pasting them.

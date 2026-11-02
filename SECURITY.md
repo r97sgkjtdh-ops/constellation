@@ -1,3 +1,5 @@
+<p align="center">Français · <a href="SECURITY.en.md">English</a></p>
+
 # Politique de sécurité
 
 ## Versions prises en charge

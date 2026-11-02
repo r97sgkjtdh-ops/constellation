@@ -1,3 +1,5 @@
+<p align="center">Français · <a href="CONTRIBUTING.en.md">English</a></p>
+
 # Contribuer à Constellation
 
 Merci de vouloir aider. Le code source de Constellation n'est pas public : ce dépôt contient la documentation et les versions publiées. Les pull requests de code ne sont donc pas possibles, mais il y a plusieurs façons de contribuer.
