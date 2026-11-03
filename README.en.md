@@ -286,7 +286,7 @@ flowchart LR
 - **Assisted**: you read and edit the plan, then approve it. Sub-agents and fixes then go on their own, within the set limits. Only these wait for you: agents' questions, conflicts, what cannot be proven and unknown commands; with the web, any command outside your plan.
 - **Delegated**: everything starts automatically, within the limits you set.
 
-By default, a mission is limited to 4 simultaneous sessions, 12 tasks, 3 fixes per task, 20 minutes per session and 80 Claude calls (sessions, reviews, written fixes, plan and summary). At that limit it suspends: what is running finishes, then nothing restarts until you untick "Suspend", which grants it 40 more calls. These limits are set in New mission › Advanced settings, where you also choose the models for the coordinator and the tasks. By default ("Per task"), the coordinator picks Haiku, Sonnet or Opus for each task, the cheapest that suffices; this choice is indicative and you can force a model. Fable is used only if you choose it and your access is verified; otherwise Opus replaces it.
+By default, a mission is limited to 3 simultaneous sessions, 12 tasks, 3 fixes per task, 20 minutes per session and 80 Claude calls (sessions, reviews, written fixes, plan and summary). In the advanced settings you can also set a maximum spending: at that amount no new session starts, and running ones finish, so it can be exceeded. At the call limit it suspends: what is running finishes, then nothing restarts until you untick "Suspend", which grants it 40 more calls. These limits are set in New mission › Advanced settings, where you also choose the models for the coordinator and the tasks. By default ("Per task"), the coordinator picks Haiku, Sonnet or Opus for each task, the cheapest that suffices; this choice is indicative and you can force a model. Fable is used only if you choose it and your access is verified; otherwise Opus replaces it.
 
 The cost shown is a minimum ("at least $1.20"): an interrupted session does not report its own.
 
@@ -417,7 +417,7 @@ Constellation looks for `claude` using the `PATH` of your login shell. If your i
 <details>
 <summary><strong>A mission fails with a usage limit (error 429)</strong></summary>
 
-Your Claude subscription limit has been reached. The exact reason is shown in the task. Wait for the reset, then restart the task: the mission picks up where it was.
+Your Claude subscription limit has been reached. The exact reason is shown in the task. An agent task then stops without failing and resumes the same conversation by itself at the announced time. If the plan or a review is hit, wait for the reset, then run it again.
 </details>
 
 <details>

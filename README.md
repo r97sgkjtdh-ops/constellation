@@ -286,7 +286,7 @@ flowchart LR
 - **Assisté** : tu relis et modifies le plan, puis tu le valides. Les sous-agents et les corrections partent ensuite seuls, dans les limites fixées. Seuls t'attendent les questions des agents, les conflits, ce qui ne peut pas être prouvé et les commandes inconnues ; avec le web, toute commande hors de ton plan.
 - **Délégué** : tout part automatiquement, dans les limites que tu fixes.
 
-Par défaut, une mission est limitée à 4 sessions simultanées, 12 tâches, 3 corrections par tâche, 20 minutes par session et 80 appels à Claude (sessions, relectures, corrections rédigées, plan et synthèse). À cette limite, elle se suspend : ce qui tourne finit, puis rien ne repart tant que tu n'as pas décoché « Suspendre », ce qui lui accorde 40 appels de plus. Ces limites se règlent dans Nouvelle mission › Réglages avancés, où l'on choisit aussi les modèles du coordinateur et des tâches. Par défaut (« Selon la tâche »), le coordinateur choisit pour chaque tâche Haiku, Sonnet ou Opus, le moins cher qui suffit ; ce choix reste indicatif et tu peux imposer un modèle. Fable n'est utilisé que si tu le choisis et que ton accès est vérifié ; sinon Opus le remplace.
+Par défaut, une mission est limitée à 3 sessions simultanées, 12 tâches, 3 corrections par tâche, 20 minutes par session et 80 appels à Claude (sessions, relectures, corrections rédigées, plan et synthèse). Dans les réglages avancés, tu peux aussi fixer une dépense maximale : à ce montant, plus aucune session ne démarre, et celles en cours finissent, donc le montant peut être dépassé. À la limite d'appels, elle se suspend : ce qui tourne finit, puis rien ne repart tant que tu n'as pas décoché « Suspendre », ce qui lui accorde 40 appels de plus. Ces limites se règlent dans Nouvelle mission › Réglages avancés, où l'on choisit aussi les modèles du coordinateur et des tâches. Par défaut (« Selon la tâche »), le coordinateur choisit pour chaque tâche Haiku, Sonnet ou Opus, le moins cher qui suffit ; ce choix reste indicatif et tu peux imposer un modèle. Fable n'est utilisé que si tu le choisis et que ton accès est vérifié ; sinon Opus le remplace.
 
 Le coût affiché est un minimum (« au moins 1,20 $ ») : une session interrompue ne rapporte pas le sien.
 
@@ -417,7 +417,7 @@ Constellation cherche `claude` avec le `PATH` de ton shell de connexion. Si ton 
 <details>
 <summary><strong>Une mission échoue avec une limite d'usage (erreur 429)</strong></summary>
 
-La limite de ton abonnement Claude est atteinte. Le motif exact est affiché dans la tâche. Attends sa réinitialisation, puis relance la tâche : la mission reprend où elle en était.
+La limite de ton abonnement Claude est atteinte. Le motif exact est affiché dans la tâche. Une tâche d'agent s'arrête alors sans échouer et reprend la même conversation toute seule à l'heure annoncée. Si le plan ou une relecture est touché, attends la réinitialisation puis relance-le.
 </details>
 
 <details>
