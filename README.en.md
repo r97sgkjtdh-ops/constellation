@@ -53,7 +53,7 @@
 
 Command-line AI agents (Claude Code, Codex, Gemini CLI, OpenCode…) are powerful and are not only for programming: searching the web and citing sources, writing or proofreading a text, translating, analyzing data, organizing a plan. But each one runs in its own terminal, with no overall view. Constellation puts them on an **infinite board**, next to your notes, your files, your browser and your Git repository, and lets you make them work together.
 
-Its central feature is the **mission**, for any subject. You write a request, a coordinator splits it into tasks, sub-agents carry them out, and the result is checked before it is declared successful. Agents can search the web (ticked by default for a new folder, unticked for an existing project) and write files (text, spreadsheet, page, code) in the working folder. This version does not generate images or videos and does not use MCP connectors in missions.
+Its central feature is the **mission**, for any subject. You write a request, a coordinator splits it into tasks, sub-agents carry them out, and the result is checked before it is declared successful. Agents can search the web (ticked by default for a new folder, unticked for an existing project) and write files (text, spreadsheet, page, code) in the working folder. This version does not generate images or videos. You can hand connectors to your agents, if you choose (see [Connectors](#connectors)).
 
 Proof has three levels, shown as they are:
 - **Verified by commands**: Constellation ran check commands itself, and their result proves the work. This is the strongest level.
@@ -303,7 +303,18 @@ With the web on, a booby-trapped page can fool an agent: it could modify files, 
 - **Honest states.** "Succeeded and verified" requires that every task passed its checks and the whole passed its own. A mission judged by a review is shown as "Succeeded, validated by review", never "verified"; commands and review together give "Succeeded, verified and reviewed". A task you accept yourself is shown as "Accepted by you", never "verified".
 - **Reliable cancellation.** Cancelling stops sessions, checks, reviews and integration, with the whole tree of their processes.
 - **No hidden restart.** After the app is closed, running tasks become "to recover" and wait for an explicit restart.
-- **Lighter sessions.** Mission sessions start without loading your MCP servers or skills, to limit the context sent to the model. This can reduce token use; the gain depends on the task, the model and the fixes needed. Amounts estimated by the CLI are not proof of billing: see [Subscription, quotas and costs](#subscription-quotas-and-costs).
+- **Lighter sessions.** Mission sessions start without loading your MCP servers or skills, to limit the context sent to the model. Only the connectors you tick are an exception (see [Connectors](#connectors)); with none ticked, nothing changes. This can reduce token use; the gain depends on the task, the model and the fixes needed. Amounts estimated by the CLI are not proof of billing: see [Subscription, quotas and costs](#subscription-quotas-and-costs).
+
+### Connectors
+In New mission, the **Connectors** section lists the ones Claude Code knows for that folder. You can hand some to your agents, as you choose.
+
+- **Nothing is ticked by default**, and your choice is not carried over from one mission to the next. The **Skills** box is separate, also unticked.
+- **Only agents and their sub-agents** receive the ticked connectors. The coordinator and the reviewer get none.
+- **Every connector counts as able to write.** Constellation cannot know which of a connector's tools change data: a sentence says so as soon as a connector is ticked, and each agent session uses a little more.
+- **A connector that is not connected is greyed out**, with its state. Constellation does not sign it in: do that in Claude Code.
+- **An explicit agreement** is asked at launch when a connector is combined with the web, or when the mission is in delegated mode. It is not remembered. In assisted mode without the web, approving the plan counts as agreement.
+- **A connector is an untrusted source**, like the web: an e-mail or a page may contain booby-trapped instructions. In assisted mode, with a connector, only the commands of your approved plan run without asking you.
+- **Actions done through a connector are marked "unverified"** and listed in the mission: Constellation cannot check them.
 
 ### Cascading delegation
 An agent that needs help creates a sub-agent, which can create its own: each appears on the board. Constellation validates them within a budget of levels (4 by default in New mission, 6 at most) and of number of tasks, has them carried out and checked, then hands control back to the parent with their results so it can consolidate. In assisted mode, you approve the starting plan; sub-agents and fixes follow without a new question, and Claude Code's native sub-agent tool is disabled in missions so that nothing happens off the board.
@@ -431,7 +442,7 @@ Open the most recent dated folder in `~/Library/Application Support/Constellatio
 
 Constellation is under active development. The main limits:
 
-- **No image or video generation yet, and no MCP connectors in missions.** No date is promised.
+- **No image or video generation yet.** No date is promised.
 - **Missions only work with Claude Code.** The other CLIs are used as consoles but have no mission adapter yet.
 - **The app is neither signed by an Apple developer nor notarized.** You have to allow it at first launch.
 - **Some features are still little tested in real conditions**: cascading delegation, fixes and cancellation. Automated tests cover neither the full interface journey nor real gestures on the board (trackpad, wheel, pinch).

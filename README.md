@@ -53,7 +53,7 @@
 
 Les agents IA en ligne de commande (Claude Code, Codex, Gemini CLI, OpenCode…) sont puissants et ne servent pas qu'à programmer : chercher sur le web et citer ses sources, rédiger ou relire un texte, traduire, analyser des données, organiser un plan. Mais on les utilise chacun dans un terminal, sans vue d'ensemble. Constellation les pose sur un **tableau infini**, à côté de tes notes, de tes fichiers, de ton navigateur et de ton dépôt Git, et te permet de les faire travailler ensemble.
 
-Sa fonction centrale est la **mission**, pour tous les sujets. Tu écris une demande, un coordinateur la découpe en tâches, des sous-agents les réalisent, et le résultat est contrôlé avant d'être déclaré réussi. Les agents peuvent chercher sur le web (case cochée par défaut pour un nouveau dossier, décochée pour un projet existant) et écrire des fichiers (texte, tableur, page, code) dans le dossier de travail. Cette version ne génère pas d'images ni de vidéos et n'utilise pas de connecteurs MCP dans les missions.
+Sa fonction centrale est la **mission**, pour tous les sujets. Tu écris une demande, un coordinateur la découpe en tâches, des sous-agents les réalisent, et le résultat est contrôlé avant d'être déclaré réussi. Les agents peuvent chercher sur le web (case cochée par défaut pour un nouveau dossier, décochée pour un projet existant) et écrire des fichiers (texte, tableur, page, code) dans le dossier de travail. Cette version ne génère pas d'images ni de vidéos. Tu peux confier des connecteurs à tes agents, à ton choix (voir [Connecteurs](#connecteurs)).
 
 La preuve a trois niveaux, affichés tels quels :
 - **Vérifiée par commandes** : Constellation a exécuté elle-même des commandes de contrôle, et leur résultat prouve le travail. C'est le niveau le plus solide.
@@ -303,7 +303,18 @@ Avec le web, une page piégée peut tromper un agent : il pourrait modifier des 
 - **Des états honnêtes.** « Réussie et vérifiée » exige que chaque tâche ait passé ses contrôles et que l'ensemble ait passé les siens. Une mission jugée par une relecture est affichée « Réussie, validée par relecture », jamais « vérifiée » ; commandes et relecture ensemble donnent « Réussie, vérifiée et relue ». Une tâche que tu acceptes toi-même est affichée « Acceptée par toi », jamais « vérifiée ».
 - **Une annulation fiable.** Annuler arrête les sessions, les contrôles, les revues et l'intégration, avec toute l'arborescence de leurs processus.
 - **Aucun relancement caché.** Après une fermeture de l'app, les tâches en cours passent « à récupérer » et attendent une relance explicite.
-- **Des sessions allégées.** Les sessions d'une mission démarrent sans charger tes serveurs MCP ni tes skills, afin de limiter le contexte envoyé au modèle. Cela peut réduire la consommation de tokens ; le gain dépend de la tâche, du modèle et des corrections nécessaires. Les montants estimés par le CLI ne constituent pas une preuve de facturation : voir [Abonnement, quotas et coûts](#abonnement-quotas-et-coûts).
+- **Des sessions allégées.** Les sessions d'une mission démarrent sans charger tes serveurs MCP ni tes skills, afin de limiter le contexte envoyé au modèle. Seuls les connecteurs que tu coches font exception (voir [Connecteurs](#connecteurs)) ; sans connecteur coché, rien ne change. Cela peut réduire la consommation de tokens ; le gain dépend de la tâche, du modèle et des corrections nécessaires. Les montants estimés par le CLI ne constituent pas une preuve de facturation : voir [Abonnement, quotas et coûts](#abonnement-quotas-et-coûts).
+
+### Connecteurs
+Dans Nouvelle mission, la section **Connecteurs** liste ceux que Claude Code connaît pour ce dossier. Tu peux en confier à tes agents, à ton choix.
+
+- **Rien n'est coché par défaut**, et ton choix n'est pas repris d'une mission à l'autre. La case **Skills** est à part, décochée aussi.
+- **Seuls les agents et leurs sous-agents** reçoivent les connecteurs cochés. Le coordinateur et le relecteur n'en ont aucun.
+- **Tout connecteur compte comme pouvant écrire.** Constellation ne peut pas savoir quels outils d'un connecteur modifient des données : une phrase le rappelle dès qu'un connecteur est coché, et chaque session d'agent consomme un peu plus.
+- **Un connecteur non connecté est grisé**, avec son état. Constellation ne l'authentifie pas : fais-le dans Claude Code.
+- **Un accord explicite** est demandé au lancement quand un connecteur est combiné au web, ou quand la mission est en mode délégué. Il n'est pas mémorisé. En mode assisté sans web, valider le plan vaut accord.
+- **Un connecteur est une source non fiable**, comme le web : un e-mail ou une page peut contenir des instructions piégées. En mode assisté, avec un connecteur, seules les commandes de ton plan validé passent sans te demander.
+- **Les actions faites par un connecteur sont marquées « non vérifiées »** et listées dans la mission : Constellation ne peut pas les contrôler.
 
 ### Délégation en cascade
 Un agent qui a besoin d'aide crée un sous-agent, qui peut créer le sien : chacun apparaît sur le tableau. Constellation les valide dans un budget de niveaux (4 par défaut dans Nouvelle mission, 6 au plus) et de nombre de tâches, les fait réaliser et contrôler, puis rend la main au parent avec leurs résultats pour qu'il consolide. En mode assisté, tu valides le plan de départ ; les sous-agents et les corrections suivent sans nouvelle question, et l'outil de sous-agents natif de Claude Code est désactivé dans les missions pour que rien ne se passe hors du tableau.
@@ -431,7 +442,7 @@ Ouvre le dossier daté le plus récent dans `~/Library/Application Support/Const
 
 Constellation est en développement actif. Les principales limites :
 
-- **Pas encore de génération d'images ni de vidéos, ni de connecteurs MCP dans les missions.** Aucune date n'est promise.
+- **Pas encore de génération d'images ni de vidéos.** Aucune date n'est promise.
 - **Les missions ne fonctionnent qu'avec Claude Code.** Les autres CLI s'utilisent comme consoles, mais n'ont pas encore d'adaptateur pour les missions.
 - **L'app n'est ni signée par un développeur Apple ni notarisée.** Il faut l'autoriser au premier lancement.
 - **Certaines fonctions sont encore peu éprouvées en conditions réelles** : la délégation en cascade, les corrections et l'annulation. Les tests automatisés ne couvrent ni le parcours complet de l'interface ni les vrais gestes sur le tableau (trackpad, molette, pincement).
