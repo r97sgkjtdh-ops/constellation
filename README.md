@@ -100,6 +100,7 @@ Constellation est une application native (Swift et SwiftUI). Elle n'a pas de ser
 - **Nouvelle mission** se lance depuis l'accueil : Constellation crée alors un dossier dans `~/Documents/Constellation` (avec un suffixe numérique si le nom est pris). Git reste discret : le choix de branche et d'isolation n'apparaît que dans un dépôt Git.
 - Des **livrables** : un clic ouvre seulement un fichier ordinaire, non exécutable, d'un type de document ; sinon il est montré dans le Finder.
 - **Missions robustes** : un agent qui plante, renvoie une erreur ou dépasse son temps est relancé tout seul (2 essais automatiques, dans sa conversation quand elle est connue) pendant que les autres terminent leur travail. « Reprendre » relance les tâches interrompues par la fermeture de Constellation, et une tâche bloquée repart dès que la tâche dont elle dépend a réussi.
+- **Historique** : le bouton **Missions** de l'accueil retrouve toutes les missions, avec une recherche. Tu peux en rouvrir une, la refaire, copier son résultat ou l'enregistrer (les clés sont masquées).
 - Détails dans [Les missions en détail](#les-missions-en-détail).
 
 ### Carte de mission
@@ -349,6 +350,7 @@ Clique sur une carte pour l'inspecter, ou sur le point au milieu d'une relation 
 | D | Studio Markdown |
 | ⇧1 | Tout cadrer |
 | Flèches (⇧ : 10 pt) | Déplacer la sélection |
+| Tab · ⇧Tab · ⌥ Flèches · Retour | Passer d'une carte à l'autre · ouvrir la carte |
 | ⌫ · Échap | Supprimer la sélection · revenir à la sélection, puis tout désélectionner |
 | Espace maintenu | Commande vocale (quand le tableau a le clavier) |
 | Fn maintenue | Dictée dans la console ou le champ actif |
@@ -448,6 +450,7 @@ Constellation est en développement actif. Les principales limites :
 - **Certaines fonctions sont encore peu éprouvées en conditions réelles** : la délégation en cascade, les corrections et l'annulation. Les tests automatisés ne couvrent ni le parcours complet de l'interface ni les vrais gestes sur le tableau (trackpad, molette, pincement).
 - **Le résultat des agents reste à vérifier par toi.** Une mission « vérifiée » l'est sur l'état testé, pas au-delà.
 - **L'isolation des worktrees ne couvre pas tout.** Les dépendances ignorées par Git (`node_modules`, `.venv`) sont partagées par lien symbolique, et les bases de données, ports et services ne sont pas isolés.
+- **Les contrôles tournent dans un bac à sable macOS.** Ils écrivent dans le dossier de travail, les dossiers temporaires et les caches de paquets, ne lisent pas les clés et secrets les plus courants (`~/.ssh`, `~/.aws`, le trousseau…) et n'ont pas de réseau si la mission utilise le web ou un connecteur. Une case dans les réglages avancés le désactive. Les données Git, la configuration de Claude et les préférences sont protégées, et un contrôle ne peut pas lancer d'apps. Il ne couvre ni les sessions des agents, qui ont leurs propres règles, ni ce que ton profil de shell expose ; d'autres fichiers du Mac restent lisibles, et ce qu'un contrôle écrit dans le dossier ou un cache peut s'exécuter plus tard. C'est une barrière de plus, pas une garantie.
 - **Les noms d'exécutables de certains CLI du catalogue n'ont pas été vérifiés.** Pour ceux qui manquent, crée un agent personnalisé.
 
 ## Signaler un problème

@@ -100,6 +100,7 @@ Constellation is a native app (Swift and SwiftUI). It has no server and no accou
 - **New mission** starts from the home screen: Constellation then creates a folder in `~/Documents/Constellation` (with a numeric suffix if the name is taken). Git stays discreet: the branch and isolation choice appears only inside a Git repository.
 - **Deliverables**: one click opens only a regular, non-executable file of a document type; otherwise it is shown in the Finder.
 - **Robust missions**: an agent that crashes, returns an error or runs out of time is restarted automatically (2 automatic tries, in its own conversation when known) while the others finish their work. "Resume" restarts the tasks interrupted when Constellation was closed, and a blocked task restarts as soon as the task it depends on has succeeded.
+- **History**: the **Missions** button on the home screen finds every mission, with a search. You can reopen one, run it again, copy its result or save it (keys are masked).
 - Details in [Missions in detail](#missions-in-detail).
 
 ### Mission map
@@ -349,6 +350,7 @@ Click a card to inspect it, or the dot in the middle of a relation to learn what
 | D | Markdown studio |
 | ⇧1 | Fit everything |
 | Arrows (⇧: 10 pt) | Move the selection |
+| Tab · ⇧Tab · ⌥ Arrows · Return | Move from card to card · open the card |
 | ⌫ · Esc | Delete the selection · back to selection, then deselect all |
 | Held Space | Voice command (when the board has the keyboard) |
 | Held Fn | Dictation in the active console or field |
@@ -448,6 +450,7 @@ Constellation is under active development. The main limits:
 - **Some features are still little tested in real conditions**: cascading delegation, fixes and cancellation. Automated tests cover neither the full interface journey nor real gestures on the board (trackpad, wheel, pinch).
 - **You still need to check the agents' results yourself.** A "verified" mission is verified on the tested state, no further.
 - **Worktree isolation does not cover everything.** Dependencies ignored by Git (`node_modules`, `.venv`) are shared by symbolic link, and databases, ports and services are not isolated.
+- **Checks run in a macOS sandbox.** They write in the working folder, temporary folders and package caches, cannot read the most common keys and secrets (`~/.ssh`, `~/.aws`, the keychain…) and have no network if the mission uses the web or a connector. A box in the advanced settings turns it off. Git data, Claude's configuration and preferences are protected, and a check cannot launch apps. It covers neither agent sessions, which have their own rules, nor what your shell profile exposes; other files on the Mac stay readable, and what a check writes in the folder or a cache can run later. It is one more barrier, not a guarantee.
 - **The executable names of some catalog CLIs have not been verified.** For those that are missing, create a custom agent.
 
 ## Reporting a problem
