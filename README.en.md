@@ -351,6 +351,8 @@ Click a card to inspect it, or the dot in the middle of a relation to learn what
 | ⇧1 | Fit everything |
 | Arrows (⇧: 10 pt) | Move the selection |
 | Tab · ⇧Tab · ⌥ Arrows · Return | Move from card to card · open the card |
+| In a kanban: ↑ then arrows · Return · ⌥ ← → | Walk the tickets · edit · change column |
+| In a calendar: arrows · Return · ⇧ Return | Walk the days · open · add an event |
 | ⌫ · Esc | Delete the selection · back to selection, then deselect all |
 | Held Space | Voice command (when the board has the keyboard) |
 | Held Fn | Dictation in the active console or field |
@@ -450,7 +452,7 @@ Constellation is under active development. The main limits:
 - **Some features are still little tested in real conditions**: cascading delegation, fixes and cancellation. Automated tests cover neither the full interface journey nor real gestures on the board (trackpad, wheel, pinch).
 - **You still need to check the agents' results yourself.** A "verified" mission is verified on the tested state, no further.
 - **Worktree isolation does not cover everything.** Dependencies ignored by Git (`node_modules`, `.venv`) are shared by symbolic link, and databases, ports and services are not isolated.
-- **Checks run in a macOS sandbox.** They write in the working folder, temporary folders and package caches, cannot read the most common keys and secrets (`~/.ssh`, `~/.aws`, the keychain…) and have no network if the mission uses the web or a connector. A box in the advanced settings turns it off. Git data, Claude's configuration and preferences are protected, and a check cannot launch apps. It covers neither agent sessions, which have their own rules, nor what your shell profile exposes; other files on the Mac stay readable, and what a check writes in the folder or a cache can run later. It is one more barrier, not a guarantee.
+- **Checks run in a macOS sandbox.** They write in the working folder, temporary folders and package caches, cannot read the most common keys and secrets (`~/.ssh`, `~/.aws`, the keychain…) and have no network if the mission uses the web or a connector. A box in the advanced settings turns it off. Git data, Claude's configuration and preferences are protected, and a check cannot launch apps. Key or password variables exported by your shell profile are removed, and what a check leaves running in the background is stopped when it ends. It does not cover agent sessions, which have their own rules; other files on the Mac stay readable, and what a check writes in the folder or a cache can run later. It is one more barrier, not a guarantee.
 - **The executable names of some catalog CLIs have not been verified.** For those that are missing, create a custom agent.
 
 ## Reporting a problem
