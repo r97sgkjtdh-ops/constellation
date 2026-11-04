@@ -287,7 +287,7 @@ flowchart LR
 - **Assisted**: you read and edit the plan, then approve it. Sub-agents and fixes then go on their own, within the set limits. Only these wait for you: agents' questions, conflicts, what cannot be proven and unknown commands; with the web, any command outside your plan.
 - **Delegated**: everything starts automatically, within the limits you set.
 
-By default, a mission is limited to 3 simultaneous sessions, 12 tasks, 3 fixes per task, 20 minutes per session and 80 Claude calls (sessions, reviews, written fixes, plan and summary). In the advanced settings you can also set a maximum spending: at that amount no new session starts, and running ones finish, so it can be exceeded. At the call limit it suspends: what is running finishes, then nothing restarts until you untick "Suspend", which grants it 40 more calls. These limits are set in New mission › Advanced settings, where you also choose the models for the coordinator and the tasks. By default ("Per task"), the coordinator picks Haiku, Sonnet or Opus for each task, the cheapest that suffices; this choice is indicative and you can force a model. Fable is used only if you choose it and your access is verified; otherwise Opus replaces it.
+By default, a mission is limited to 3 simultaneous sessions, 12 tasks, 3 fixes per task, 20 minutes per session and 80 Claude calls (sessions, reviews, written fixes, plan and summary). In the advanced settings you can also set a maximum spending: at that amount no new session starts, and running ones finish, so it can be exceeded. At the call limit it suspends: what is running finishes, then nothing restarts until you untick "Suspend", which grants it 40 more calls. These limits are set in New mission › Advanced settings, where you also choose the models for the coordinator and the tasks. By default ("Per task"), the coordinator picks Haiku, Sonnet or Opus for each task, the cheapest that suffices; this choice is indicative and you can force a model. Fable is used only if you choose it and your access is verified; otherwise Opus replaces it. You can choose a model there for the coordinator, the tasks and the review, which follows the coordinator's by default.
 
 The cost shown is a minimum ("at least $1.20"): an interrupted session does not report its own.
 
@@ -455,11 +455,11 @@ Constellation is under active development. The main limits:
 - **Checks run in a macOS sandbox.** They write in the working folder, temporary folders and package caches, cannot read the most common keys and secrets (`~/.ssh`, `~/.aws`, the keychain…) and have no network if the mission uses the web or a connector. A box in the advanced settings turns it off. Git data, Claude's configuration and preferences are protected, and a check cannot launch apps. Key or password variables exported by your shell profile are removed, and what a check leaves running in the background is stopped when it ends (since 0.3.17, a process in its own session too, in a task's worktree and if it stays in that folder). It does not cover agent sessions, which have their own rules; other files on the Mac stay readable, and what a check writes in the folder or a cache can run later. Since 0.3.17, a subfolder holding a `.git` or a `CLAUDE.md` can no longer be moved during a check; a folder made elsewhere can still arrive with its own `.git`. It is one more barrier, not a guarantee.
 - **The executable names of some catalog CLIs have not been verified.** For those that are missing, create a custom agent.
 
-**What works and how it was checked**: missions are covered by 571 automated tests and real successful missions; the sandbox by tests with the real `sandbox-exec`; the keyboard inside cards (since 0.3.17) with real keys and real clicks sent by macOS; the update by a real move from 0.3.15 to 0.3.17 from the app.
+**What works and how it was checked**: missions are covered by 574 automated tests and real successful missions; the sandbox by tests with the real `sandbox-exec`; the keyboard inside cards (since 0.3.17) with real keys and real clicks sent by macOS; the update by a real move from 0.3.15 to 0.3.17 from the app.
 
 **Still to check in real conditions**: VoiceOver, a forced stop during integration, the second-instance alert, the fish shell.
 
-**Coming, with no date**: choosing a model per role, Apple signature and notarisation, image and video generation, other CLIs in missions.
+**Coming, with no date**: Apple signature and notarisation, image and video generation, other CLIs in missions.
 
 ## Reporting a problem
 
