@@ -300,7 +300,7 @@ With the web on, a booby-trapped page can fool an agent: it could modify files, 
 
 ### Guarantees
 - **Proof tied to the tested state.** Each proof is tied to the exact content of the checked files: revision, changes and untracked files. If that content changes before integration, the checks are re-run.
-- **Exact permissions.** Known test and build commands run on their own, except with the web: only the commands in your approved plan then pass without asking (in delegated mode, none, unless you ticked the permission). The others wait for your approval, and a modified command is no longer approved.
+- **Exact permissions.** Known test and build commands run on their own, except with the web or a connector: only the commands in your approved plan and plain reads of the folder then pass without asking (in delegated mode, only those reads, unless you ticked the permission). With no web or connector, and with the sandbox, that box is ticked by default: the project's code, even cloned, can then run without asking, in the sandbox, with the network open. The others wait for your approval, and a modified command is no longer approved.
 - **Honest states.** "Succeeded and verified" requires that every task passed its checks and the whole passed its own. A mission judged by a review is shown as "Succeeded, validated by review", never "verified"; commands and review together give "Succeeded, verified and reviewed". A task you accept yourself is shown as "Accepted by you", never "verified".
 - **Reliable cancellation.** Cancelling stops sessions, checks, reviews and integration, with the whole tree of their processes.
 - **No hidden restart.** After the app is closed, running tasks become "to recover" and wait for an explicit restart.
@@ -455,9 +455,9 @@ Constellation is under active development. The main limits:
 - **Checks run in a macOS sandbox.** They write in the working folder, temporary folders and package caches, cannot read the most common keys and secrets (`~/.ssh`, `~/.aws`, the keychain…) and have no network if the mission uses the web or a connector. A box in the advanced settings turns it off. Git data, Claude's configuration and preferences are protected, and a check cannot launch apps. Key or password variables exported by your shell profile are removed, and what a check leaves running in the background is stopped when it ends (since 0.3.17, a process in its own session too, in a task's worktree and if it stays in that folder). It does not cover agent sessions, which have their own rules; other files on the Mac stay readable, and what a check writes in the folder or a cache can run later. Since 0.3.17, a subfolder holding a `.git` or a `CLAUDE.md` can no longer be moved during a check; a folder made elsewhere can still arrive with its own `.git`. It is one more barrier, not a guarantee.
 - **The executable names of some catalog CLIs have not been verified.** For those that are missing, create a custom agent.
 
-**What works and how it was checked**: missions are covered by 574 automated tests and real successful missions; the sandbox by tests with the real `sandbox-exec`; the keyboard inside cards (since 0.3.17) with real keys and real clicks sent by macOS; the update by a real move from 0.3.15 to 0.3.17 from the app.
+**What works and how it was checked**: missions are covered by 726 automated tests and real successful missions; the sandbox by tests with the real `sandbox-exec`; the keyboard inside cards (since 0.3.17) with real keys and real clicks sent by macOS; the update by a real move from 0.3.15 to 0.3.17 from the app.
 
-**Still to check in real conditions**: VoiceOver, a forced stop during integration, the second-instance alert, the fish shell.
+**Still to check in real conditions**: VoiceOver, the confirmation dialogs added in 0.3.19, a forced stop during integration, the second-instance alert, the fish shell.
 
 **Coming, with no date**: Apple signature and notarisation, image and video generation, other CLIs in missions.
 
