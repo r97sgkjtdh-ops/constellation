@@ -15,7 +15,7 @@ body:
     attributes:
       label: Version de Constellation / Constellation version
       description: Réglages › À propos. / Settings › About.
-      placeholder: "0.3.20"
+      placeholder: "0.3.21"
     validations:
       required: true
   - type: input
