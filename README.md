@@ -81,12 +81,13 @@ Constellation est une application native (Swift et SwiftUI). Elle n'a pas de ser
 - Vrais terminaux (PTY) : Ctrl-C, interfaces en plein écran, couleurs 256 et truecolor, 10 000 lignes d'historique.
 - Catalogue d'environ 25 CLI détectés automatiquement (Claude Code, Codex, Gemini, OpenCode…), plus tes agents personnalisés.
 - Pause, reprise, redémarrage, duplication et changement de CLI. La conversation précédente est reprise quand le CLI le permet.
-- État de chaque console (au travail, en attente d'autorisation, terminé…), précis pour Claude Code grâce à ses hooks.
+- État de chaque console (au travail, en attente d'autorisation, tour échoué, terminé…), précis pour Claude Code grâce à ses hooks. Une console au travail sans aucun signe depuis 10 minutes est signalée « Bloquée ? ».
+- Notifications macOS quand l'app est en arrière-plan, et nombre de consoles qui t'attendent sur l'icône du Dock. Un clic sur le compteur de consoles les liste toutes ; ⌘P va à une carte.
 - Profils séparés pour Claude Code (`CLAUDE_CONFIG_DIR`) et Codex (`CODEX_HOME`).
 
 ### Coordination
 - **Groupes** nommés et colorés, avec des rôles (frontend, backend, tests, revue, documentation, sécurité…).
-- **Barre de commande** (⌘K) : mentions `@console` et `@groupe`, ordres en langage naturel (« crée 4 agents Codex ») et plan validé avant l'envoi.
+- **Barre de commande** (⌘K) : mentions `@console` et `@groupe`, ordres en langage naturel (« crée 4 agents Codex ») et plan modifiable, validé avant l'envoi, avec étapes qui s'attendent et compte rendu final. Guides : [donner des ordres](docs/ordres.md), [rôles et équipes](docs/roles-et-equipes.md), [exemples](docs/exemples.md).
 - **Relais** : handoff vers une nouvelle console avec un résumé, et transfert de réponses d'une console à d'autres.
 - **Boucles** : une consigne relancée à intervalle régulier ou à chaque fin de tour, jusqu'à un objectif vérifié (code de sortie ou verdict).
 - **Mémoire** partagée du projet, construite par une lecture du code en lecture seule et transmise aux consoles.
@@ -333,6 +334,7 @@ Clique sur une carte pour l'inspecter, ou sur le point au milieu d'une relation 
 | Raccourci | Action |
 |---|---|
 | ⌘K | Barre de commande |
+| ⌘P | Aller à une carte |
 | ⌘O | Ouvrir un dossier comme projet |
 | ⇧⌘T | Nouvel espace |
 | ⌘1 … ⌘9 | Aller à l'espace 1 à 9 |
@@ -452,10 +454,10 @@ Constellation est en développement actif. Les principales limites :
 - **Certaines fonctions sont encore peu éprouvées en conditions réelles** : la délégation en cascade, les corrections et l'annulation. Les tests automatisés ne couvrent ni le parcours complet de l'interface ni les vrais gestes sur le tableau (trackpad, molette, pincement).
 - **Le résultat des agents reste à vérifier par toi.** Une mission « vérifiée » l'est sur l'état testé, pas au-delà.
 - **L'isolation des worktrees ne couvre pas tout.** Les dépendances ignorées par Git (`node_modules`, `.venv`) sont partagées par lien symbolique, et les bases de données, ports et services ne sont pas isolés.
-- **Les contrôles tournent dans un bac à sable macOS.** Ils écrivent dans le dossier de travail, les dossiers temporaires et les caches de paquets, ne lisent pas les clés et secrets les plus courants (`~/.ssh`, `~/.aws`, le trousseau…) et n'ont pas de réseau si la mission utilise le web ou un connecteur. Une case dans les réglages avancés le désactive. Les données Git, la configuration de Claude et les préférences sont protégées, et un contrôle ne peut pas lancer d'apps. Les variables de type clé ou mot de passe exportées par ton profil de shell sont retirées, et ce qu'un contrôle laisse tourner en arrière-plan est arrêté à sa fin (depuis la 0.3.17, un processus dans sa propre session aussi, dans le worktree d'une tâche et s'il reste dans ce dossier). Il ne couvre pas les sessions des agents, qui ont leurs propres règles ; d'autres fichiers du Mac restent lisibles, et ce qu'un contrôle écrit dans le dossier ou un cache peut s'exécuter plus tard. Depuis la 0.3.17, un sous-dossier qui contient un `.git` ou un `CLAUDE.md` ne peut plus être déplacé pendant un contrôle ; un dossier créé ailleurs peut encore y arriver avec son propre `.git`. C'est une barrière de plus, pas une garantie.
+- **Les contrôles tournent dans un bac à sable macOS.** Ils écrivent dans le dossier de travail, les dossiers temporaires et les caches de paquets, ne lisent pas les clés et secrets les plus courants (`~/.ssh`, `~/.aws`, le trousseau…) et n'ont pas de réseau si la mission utilise le web ou un connecteur. Une case dans les réglages avancés le désactive. Les données Git, la configuration de Claude et les préférences sont protégées, et un contrôle ne peut pas lancer d'apps. Les variables de type clé ou mot de passe exportées par ton profil de shell sont retirées, et ce qu'un contrôle laisse tourner en arrière-plan est arrêté à sa fin (depuis la 0.3.17, un processus dans sa propre session aussi, dans le worktree d'une tâche et s'il reste dans ce dossier). Il ne couvre pas les sessions des agents, qui ont leurs propres règles. Depuis la 0.3.29, tes dossiers personnels (Documents, Bureau, Téléchargements, Photos, Mail, Messages, iCloud) sont fermés, sauf le projet lui-même ; d'autres fichiers du Mac restent lisibles, et ce qu'un contrôle écrit dans le dossier ou un cache peut s'exécuter plus tard. Depuis la 0.3.17, un sous-dossier qui contient un `.git` ou un `CLAUDE.md` ne peut plus être déplacé pendant un contrôle ; un dossier créé ailleurs peut encore y arriver avec son propre `.git`. C'est une barrière de plus, pas une garantie.
 - **Les noms d'exécutables de certains CLI du catalogue n'ont pas été vérifiés.** Pour ceux qui manquent, crée un agent personnalisé.
 
-**Ce qui marche et comment c'est vérifié** : les missions sont couvertes par 816 tests automatiques et de vraies missions réussies ; le bac à sable par des tests avec le vrai `sandbox-exec` ; le clavier dans les cartes (depuis la 0.3.17) avec de vraies touches et de vrais clics envoyés par macOS ; la mise à jour par un vrai passage de la 0.3.15 à la 0.3.17 depuis l'app.
+**Ce qui marche et comment c'est vérifié** : les missions sont couvertes par 851 tests automatiques et de vraies missions réussies ; le bac à sable par des tests avec le vrai `sandbox-exec` ; le clavier dans les cartes (depuis la 0.3.17) avec de vraies touches et de vrais clics envoyés par macOS ; la mise à jour par un vrai passage de la 0.3.15 à la 0.3.17 depuis l'app.
 
 **Encore à vérifier en conditions réelles** : VoiceOver, les fenêtres de confirmation ajoutées en 0.3.19, l'arrêt forcé pendant l'intégration, l'alerte de deuxième instance, le shell fish.
 

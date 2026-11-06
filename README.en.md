@@ -81,12 +81,13 @@ Constellation is a native app (Swift and SwiftUI). It has no server and no accou
 - Real terminals (PTY): Ctrl-C, full-screen interfaces, 256 colors and truecolor, 10,000 lines of history.
 - Catalog of about 25 CLIs detected automatically (Claude Code, Codex, Gemini, OpenCode…), plus your custom agents.
 - Pause, resume, restart, duplicate and switch CLI. The previous conversation is resumed when the CLI allows it.
-- State of each console (working, waiting for permission, done…), precise for Claude Code thanks to its hooks.
+- State of each console (working, waiting for permission, turn failed, done…), precise for Claude Code thanks to its hooks. A console working without any sign for 10 minutes is flagged “Stuck?”.
+- macOS notifications when the app is in the background, and the number of consoles waiting for you on the Dock icon. A click on the console counter lists them all; ⌘P goes to a card.
 - Separate profiles for Claude Code (`CLAUDE_CONFIG_DIR`) and Codex (`CODEX_HOME`).
 
 ### Coordination
 - Named, colored **groups**, with roles (frontend, backend, tests, review, documentation, security…).
-- **Command bar** (⌘K): `@console` and `@group` mentions, natural-language orders ("create 4 Codex agents") and a plan approved before sending.
+- **Command bar** (⌘K): `@console` and `@group` mentions, natural-language orders ("create 4 Codex agents") and a plan you can edit and approve before sending, with steps that wait for others and a final report. Guides: [giving orders](docs/orders.md), [roles and teams](docs/roles-and-teams.md), [examples](docs/examples.md).
 - **Relays**: handoff to a new console with a summary, and forwarding of replies from one console to others.
 - **Loops**: an instruction re-run at a regular interval or at the end of each turn, until a verified goal (exit code or verdict).
 - Shared project **memory**, built by a read-only reading of the code and passed to the consoles.
@@ -333,6 +334,7 @@ Click a card to inspect it, or the dot in the middle of a relation to learn what
 | Shortcut | Action |
 |---|---|
 | ⌘K | Command bar |
+| ⌘P | Go to a card |
 | ⌘O | Open a folder as a project |
 | ⇧⌘T | New space |
 | ⌘1 … ⌘9 | Go to space 1 to 9 |
@@ -452,7 +454,7 @@ Constellation is under active development. The main limits:
 - **Some features are still little tested in real conditions**: cascading delegation, fixes and cancellation. Automated tests cover neither the full interface journey nor real gestures on the board (trackpad, wheel, pinch).
 - **You still need to check the agents' results yourself.** A "verified" mission is verified on the tested state, no further.
 - **Worktree isolation does not cover everything.** Dependencies ignored by Git (`node_modules`, `.venv`) are shared by symbolic link, and databases, ports and services are not isolated.
-- **Checks run in a macOS sandbox.** They write in the working folder, temporary folders and package caches, cannot read the most common keys and secrets (`~/.ssh`, `~/.aws`, the keychain…) and have no network if the mission uses the web or a connector. A box in the advanced settings turns it off. Git data, Claude's configuration and preferences are protected, and a check cannot launch apps. Key or password variables exported by your shell profile are removed, and what a check leaves running in the background is stopped when it ends (since 0.3.17, a process in its own session too, in a task's worktree and if it stays in that folder). It does not cover agent sessions, which have their own rules; other files on the Mac stay readable, and what a check writes in the folder or a cache can run later. Since 0.3.17, a subfolder holding a `.git` or a `CLAUDE.md` can no longer be moved during a check; a folder made elsewhere can still arrive with its own `.git`. It is one more barrier, not a guarantee.
+- **Checks run in a macOS sandbox.** They write in the working folder, temporary folders and package caches, cannot read the most common keys and secrets (`~/.ssh`, `~/.aws`, the keychain…) and have no network if the mission uses the web or a connector. A box in the advanced settings turns it off. Git data, Claude's configuration and preferences are protected, and a check cannot launch apps. Key or password variables exported by your shell profile are removed, and what a check leaves running in the background is stopped when it ends (since 0.3.17, a process in its own session too, in a task's worktree and if it stays in that folder). It does not cover agent sessions, which have their own rules. Since 0.3.29, your personal folders (Documents, Desktop, Downloads, Pictures, Mail, Messages, iCloud) are closed, except the project itself; other files on the Mac stay readable, and what a check writes in the folder or a cache can run later. Since 0.3.17, a subfolder holding a `.git` or a `CLAUDE.md` can no longer be moved during a check; a folder made elsewhere can still arrive with its own `.git`. It is one more barrier, not a guarantee.
 - **The executable names of some catalog CLIs have not been verified.** For those that are missing, create a custom agent.
 
 **What works and how it was checked**: missions are covered by 730 automated tests and real successful missions; the sandbox by tests with the real `sandbox-exec`; the keyboard inside cards (since 0.3.17) with real keys and real clicks sent by macOS; the update by a real move from 0.3.15 to 0.3.17 from the app.
