@@ -4,6 +4,16 @@
 
 What each published version brought, newest first. Before 0.3.0, versions were not published.
 
+## 0.3.30 (2026-11-06)
+
+### Fixes
+- **An order's plan**: the "Final report" box and the "After …" menu are the same size as the rest of the editor. They were larger.
+- **Console list**: the time reads "3 min ago", instead of "since 3 min ago".
+
+### Good to know
+- **Presentation**: screenshots of an order's plan and of the console list, guides, frequently asked questions and the changelog on the project page.
+- **Checked**: the test suite (851 tests, 16 skipped, no failures), on this Mac and on GitHub.
+
 ## 0.3.29 (2026-11-06)
 
 ### Orders to several consoles

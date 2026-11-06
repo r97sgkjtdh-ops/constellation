@@ -28,7 +28,7 @@
 
 <p align="center"><sub>Screenshots of the app, with sample data.</sub></p>
 
-> **New in 0.3.29**: an order's plan can be edited before sending and its steps can wait for each other; a stuck console is flagged; macOS notifications; going back to an earlier version from the app. [Everything new](CHANGELOG.en.md)
+> **New in 0.3.29 and 0.3.30**: an order's plan can be edited before sending and its steps can wait for each other; a stuck console is flagged; macOS notifications; going back to an earlier version from the app. [Everything new](CHANGELOG.en.md)
 
 ---
 

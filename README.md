@@ -28,7 +28,7 @@
 
 <p align="center"><sub>Captures de l'app, avec des données d'exemple.</sub></p>
 
-> **Nouveau dans la 0.3.29** : le plan d'un ordre se modifie avant l'envoi et ses étapes peuvent s'attendre ; une console bloquée est signalée ; notifications macOS ; retour à une version précédente depuis l'app. [Toutes les nouveautés](CHANGELOG.md)
+> **Nouveau dans les 0.3.29 et 0.3.30** : le plan d'un ordre se modifie avant l'envoi et ses étapes peuvent s'attendre ; une console bloquée est signalée ; notifications macOS ; retour à une version précédente depuis l'app. [Toutes les nouveautés](CHANGELOG.md)
 
 ---
 

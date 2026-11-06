@@ -4,6 +4,16 @@
 
 Les nouveautés et corrections de chaque version publiée, de la plus récente à la plus ancienne. Avant la 0.3.0, les versions n'étaient pas publiées.
 
+## 0.3.30 (2026-11-06)
+
+### Corrections
+- **Plan d'un ordre** : la case « Compte rendu final » et le menu « Après … » sont à la même taille que le reste de l'éditeur. Ils étaient plus gros.
+- **Liste des consoles** : le temps s'affiche « il y a 3 min », au lieu de « depuis il y a 3 min ».
+
+### À savoir
+- **Présentation** : captures du plan d'un ordre et de la liste des consoles, guides, questions fréquentes et journal des versions sur la page du projet.
+- **Vérifié** : la suite de tests (851 tests, 16 ignorés, aucun échec), sur ce Mac et sur GitHub.
+
 ## 0.3.29 (2026-11-06)
 
 ### Ordres à plusieurs consoles
