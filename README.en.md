@@ -28,6 +28,8 @@
 
 <p align="center"><sub>Screenshots of the app, with sample data.</sub></p>
 
+> **New in 0.3.29**: an order's plan can be edited before sending and its steps can wait for each other; a stuck console is flagged; macOS notifications; going back to an earlier version from the app. [Everything new](CHANGELOG.en.md)
+
 ---
 
 ## Contents
@@ -45,6 +47,8 @@
 - [Data and privacy](#data-and-privacy)
 - [Uninstalling](#uninstalling)
 - [Troubleshooting](#troubleshooting)
+- [Guides](#guides)
+- [Frequently asked questions](#frequently-asked-questions)
 - [Project status and known limits](#project-status-and-known-limits)
 - [Reporting a problem](#reporting-a-problem)
 - [License](#license)
@@ -91,6 +95,13 @@ Constellation is a native app (Swift and SwiftUI). It has no server and no accou
 - **Relays**: handoff to a new console with a summary, and forwarding of replies from one console to others.
 - **Loops**: an instruction re-run at a regular interval or at the end of each turn, until a verified goal (exit code or verdict).
 - Shared project **memory**, built by a read-only reading of the code and passed to the consoles.
+
+<p align="center">
+  <img src="docs/images/orders-en.png" width="640" alt="An order to four consoles: the editable plan, a step waiting for Claude 1, the final step; below, an order under way with a step done, one failed and the final step waiting for your go-ahead">
+</p>
+<p align="center">
+  <img src="docs/images/consoles-en.png" width="440" alt="The console list: needs you, turn failed, working, ready">
+</p>
 
 ### Missions
 - A read-only coordinator proposes a plan, approved before anything runs.
@@ -373,15 +384,15 @@ The old version is kept in `~/Library/Application Support/Constellation-sauvegar
 
 ## Data and privacy
 
-- **No Constellation server.** The app sends no statistics or telemetry. Its only connections are the update check on the GitHub API (can be turned off), the pages you open in the built-in browser, and what the CLIs you launch do, which follow their own terms.
+- **No Constellation server.** The app sends no statistics or telemetry. Its only connections are the update check on GitHub (the API and the signed list of withdrawn versions, can be turned off), the pages you open in the built-in browser, and what the CLIs you launch do, which follow their own terms.
 - **No credentials kept.** Accounts stay managed by Claude Code, Codex, `gh`, etc.
 - **Where your data is:**
 
 | Location | Content |
 |---|---|
-| `~/Library/Application Support/Constellation/` | Boards, missions, patches, forwards, update logs |
+| `~/Library/Application Support/Constellation/` | Boards, missions, orders, patches, forwards, update logs |
 | `~/Library/Preferences/com.vel.constellation.plist` | Settings |
-| `<your project>/.constellation/` | Handoff summaries, copies of discarded changes |
+| `<your project>/.constellation/` | Handoff summaries, reports passed between consoles (removed after 7 days), copies of discarded changes |
 | `~/Library/Application Support/Constellation-sauvegardes/` | Old app versions and copies of your data, made at each install |
 
 ## Uninstalling
@@ -443,6 +454,32 @@ Menu **Help › Export Diagnostic…**: Constellation creates a `.zip` archive w
 
 Open the most recent dated folder in `~/Library/Application Support/Constellation-sauvegardes/` and follow its `RESTAURER.txt` file.
 </details>
+
+## Guides
+
+| Guide | What for |
+|---|---|
+| [Giving orders](docs/orders.md) | The command bar: writing an order, editing the plan, steps that wait for others, final report. |
+| [Roles and teams](docs/roles-and-teams.md) | Groups, roles and the 18 ready-made layouts. |
+| [Examples](docs/examples.md) | Ten orders ready to copy. |
+| [Changelog](CHANGELOG.en.md) | What each version brought. |
+
+## Frequently asked questions
+
+**Order, mission or loop: which one?**
+An **order** (⌘K) sends instructions to consoles already open, and you follow their work yourself. A **mission** hands a whole request to a coordinator: it splits it into tasks, has them done in parallel and checks the result before saying "succeeded". A **loop** sends the same instruction again at an interval or at each end of turn, until a checked goal.
+
+**Does Constellation cost anything?**
+The app is free. The agents use your own account (Claude subscription or API key): see [Subscription, quotas and costs](#subscription-quotas-and-costs).
+
+**Do my files go anywhere?**
+Constellation has no server and sends no statistics. What the agents read goes to their provider, as when you use them in a terminal. Details in [Data and privacy](#data-and-privacy).
+
+**Is Claude Code required?**
+For missions and the order planner, yes. Consoles also take Codex, Gemini CLI, OpenCode and other CLIs.
+
+**How do I go back after an update?**
+Each installation keeps the previous version: Settings › Updates › "Go back to an earlier version".
 
 ## Project status and known limits
 

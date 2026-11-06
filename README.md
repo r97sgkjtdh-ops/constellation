@@ -28,6 +28,8 @@
 
 <p align="center"><sub>Captures de l'app, avec des données d'exemple.</sub></p>
 
+> **Nouveau dans la 0.3.29** : le plan d'un ordre se modifie avant l'envoi et ses étapes peuvent s'attendre ; une console bloquée est signalée ; notifications macOS ; retour à une version précédente depuis l'app. [Toutes les nouveautés](CHANGELOG.md)
+
 ---
 
 ## Sommaire
@@ -45,6 +47,8 @@
 - [Données et confidentialité](#données-et-confidentialité)
 - [Désinstallation](#désinstallation)
 - [Dépannage](#dépannage)
+- [Guides](#guides)
+- [Questions fréquentes](#questions-fréquentes)
 - [État du projet et limites connues](#état-du-projet-et-limites-connues)
 - [Signaler un problème](#signaler-un-problème)
 - [Licence](#licence)
@@ -91,6 +95,13 @@ Constellation est une application native (Swift et SwiftUI). Elle n'a pas de ser
 - **Relais** : handoff vers une nouvelle console avec un résumé, et transfert de réponses d'une console à d'autres.
 - **Boucles** : une consigne relancée à intervalle régulier ou à chaque fin de tour, jusqu'à un objectif vérifié (code de sortie ou verdict).
 - **Mémoire** partagée du projet, construite par une lecture du code en lecture seule et transmise aux consoles.
+
+<p align="center">
+  <img src="docs/images/orders.png" width="640" alt="Un ordre à quatre consoles : le plan modifiable, une étape qui attend Claude 1, l'étape finale ; en dessous, un ordre en cours avec une étape terminée, une en échec et l'étape finale qui attend ton accord">
+</p>
+<p align="center">
+  <img src="docs/images/consoles.png" width="440" alt="La liste des consoles : besoin de toi, tour échoué, au travail, prête">
+</p>
 
 ### Missions
 - Un coordinateur en lecture seule propose un plan, validé avant toute exécution.
@@ -373,15 +384,15 @@ L'ancienne version est gardée dans `~/Library/Application Support/Constellation
 
 ## Données et confidentialité
 
-- **Aucun serveur Constellation.** L'application n'envoie ni statistiques ni télémétrie. Ses seules connexions sont la recherche de mises à jour sur l'API GitHub (désactivable), les pages que tu ouvres dans le navigateur intégré, et ce que font les CLI que tu lances, qui suivent leurs propres conditions.
+- **Aucun serveur Constellation.** L'application n'envoie ni statistiques ni télémétrie. Ses seules connexions sont la recherche de mises à jour sur GitHub (l'API et la liste signée des versions retirées, désactivable), les pages que tu ouvres dans le navigateur intégré, et ce que font les CLI que tu lances, qui suivent leurs propres conditions.
 - **Aucun identifiant conservé.** Les comptes restent gérés par Claude Code, Codex, `gh`, etc.
 - **Où sont tes données :**
 
 | Emplacement | Contenu |
 |---|---|
-| `~/Library/Application Support/Constellation/` | Tableaux, missions, patchs, transferts, journaux de mise à jour |
+| `~/Library/Application Support/Constellation/` | Tableaux, missions, ordres, patchs, transferts, journaux de mise à jour |
 | `~/Library/Preferences/com.vel.constellation.plist` | Réglages |
-| `<ton projet>/.constellation/` | Résumés de handoff, copies des changements annulés |
+| `<ton projet>/.constellation/` | Résumés de handoff, comptes rendus transmis entre consoles (effacés après 7 jours), copies des changements annulés |
 | `~/Library/Application Support/Constellation-sauvegardes/` | Anciennes versions de l'app et copies de tes données, faites à chaque installation |
 
 ## Désinstallation
@@ -443,6 +454,32 @@ Menu **Aide › Exporter un diagnostic…** : Constellation crée une archive `.
 
 Ouvre le dossier daté le plus récent dans `~/Library/Application Support/Constellation-sauvegardes/` et suis son fichier `RESTAURER.txt`.
 </details>
+
+## Guides
+
+| Guide | Pour quoi |
+|---|---|
+| [Donner des ordres](docs/ordres.md) | La barre de commande : écrire un ordre, modifier le plan, étapes qui s'attendent, compte rendu final. |
+| [Rôles et équipes](docs/roles-et-equipes.md) | Groupes, rôles et les 18 dispositions prêtes à l'emploi. |
+| [Exemples](docs/exemples.md) | Dix ordres prêts à copier. |
+| [Journal des versions](CHANGELOG.md) | Ce que chaque version a apporté. |
+
+## Questions fréquentes
+
+**Ordre, mission ou boucle : lequel choisir ?**
+Un **ordre** (⌘K) envoie des consignes à des consoles déjà ouvertes, et tu suis leur travail toi-même. Une **mission** confie une demande entière à un coordinateur : il la découpe en tâches, les fait faire en parallèle et contrôle le résultat avant de dire « réussi ». Une **boucle** relance la même consigne à intervalle régulier ou à chaque fin de tour, jusqu'à un objectif vérifié.
+
+**Est-ce que Constellation coûte quelque chose ?**
+L'app est gratuite. Les agents utilisent ton propre compte (abonnement Claude ou clé API) : voir [Abonnement, quotas et coûts](#abonnement-quotas-et-coûts).
+
+**Mes fichiers partent-ils quelque part ?**
+Constellation n'a pas de serveur et n'envoie aucune statistique. Ce que lisent les agents part chez leur fournisseur, comme quand tu les utilises dans un terminal. Détails dans [Données et confidentialité](#données-et-confidentialité).
+
+**Faut-il Claude Code ?**
+Pour les missions et le planificateur des ordres, oui. Les consoles acceptent aussi Codex, Gemini CLI, OpenCode et d'autres CLI.
+
+**Comment revenir en arrière après une mise à jour ?**
+Chaque installation garde la version précédente : Réglages › Mises à jour › « Revenir à une version précédente ».
 
 ## État du projet et limites connues
 
