@@ -4,6 +4,29 @@
 
 What each published version brought, newest first. Before 0.3.0, versions were not published.
 
+## 0.3.31 (2026-11-07)
+
+### New
+- **Roles that really change the behaviour** (Claude Code): each role gives a starting instruction, and **Review** and **Security** work read-only, with no tool that changes a file. The order planner reads the role's description.
+- **Mission templates**: six templates ready to complete (fix a bug, new feature, audit, documentation, web research, restructuring), and your own templates. A template never carries the connectors, your agreement to external sources or the approval of the checks.
+- **“Redo” a mission** also takes back its mode, limits, isolation and web.
+- **Order history**: every order, even cleared from the thread, with search, details and a Markdown export without secrets.
+- **Same file edited**: two Claude consoles editing the same file within half an hour are flagged.
+- **Log kept on disk** (7 days, without secrets), and an abrupt stop is flagged at the next launch, with a diagnostic that attaches macOS's crash report.
+- **Notifications signed Constellation**: a finished turn is reported by Constellation. In the consoles and missions it launches, the ECC plugin's "Claude Code" notification is turned off; it stays on in your Terminal.
+- **Lighter top bar**: the quota and the usage are now a single button.
+- **Settings redone**: a sidebar with search, like macOS's System Settings, and new sections. **Board**: size of new consoles, animated, still or no background network. **Notifications**: each kind of event set apart, with or without sound, and the Dock badge. **Confirmations**: you can stop being asked before stopping a console or quitting. **Data**: export, import or reset the settings, create a diagnostic, open the log. **About**: the credits (Vel, with the GitHub link) and the open-source software used.
+
+### Fixes
+- **Console counter**: it could count consoles from test projects left in the data by the automatic captures. Captures now keep everything in their throwaway folder.
+- **Settings › Updates**: "From the code on this Mac" no longer shows in a published app, which could not use it.
+
+### Good to know
+- **Checked**: the test suite on this Mac (870 tests, 16 skipped, no failures); the role options with the real Claude Code; the "same file" warning with the real script, which keeps only the file's path. GitHub did not run its checks (the month's minutes are used up).
+- **Checked by captures**: every section of the new Settings, in French and English.
+- **Not checked on screen**: mission templates, the order history, the "same file" warning and the new notifications. If something gets stuck, open an issue.
+- **Changing a console's role** applies at its next start. For Codex and Gemini, the role stays a label.
+
 ## 0.3.30 (2026-11-06)
 
 ### Fixes

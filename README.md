@@ -28,7 +28,7 @@
 
 <p align="center"><sub>Captures de l'app, avec des données d'exemple.</sub></p>
 
-> **Nouveau dans les 0.3.29 et 0.3.30** : le plan d'un ordre se modifie avant l'envoi et ses étapes peuvent s'attendre ; une console bloquée est signalée ; notifications macOS ; retour à une version précédente depuis l'app. [Toutes les nouveautés](CHANGELOG.md)
+> **Nouveau dans la 0.3.31** : des Réglages refaits (barre latérale avec recherche, notifications par type, tableau, données, crédits) ; des rôles qui changent vraiment le comportement des consoles Claude Code ; six modèles de mission ; l'historique des ordres ; l'alerte quand deux consoles modifient le même fichier ; des notifications signées Constellation. [Toutes les nouveautés](CHANGELOG.md)
 
 ---
 
@@ -90,7 +90,7 @@ Constellation est une application native (Swift et SwiftUI). Elle n'a pas de ser
 - Profils séparés pour Claude Code (`CLAUDE_CONFIG_DIR`) et Codex (`CODEX_HOME`).
 
 ### Coordination
-- **Groupes** nommés et colorés, avec des rôles (frontend, backend, tests, revue, documentation, sécurité…).
+- **Groupes** nommés et colorés, avec des rôles (frontend, backend, tests, revue, documentation, sécurité…). Pour Claude Code, un rôle donne une consigne de départ, et Revue et Sécurité travaillent en lecture seule.
 - **Barre de commande** (⌘K) : mentions `@console` et `@groupe`, ordres en langage naturel (« crée 4 agents Codex ») et plan modifiable, validé avant l'envoi, avec étapes qui s'attendent et compte rendu final. Guides : [donner des ordres](docs/ordres.md), [rôles et équipes](docs/roles-et-equipes.md), [exemples](docs/exemples.md).
 - **Relais** : handoff vers une nouvelle console avec un résumé, et transfert de réponses d'une console à d'autres.
 - **Boucles** : une consigne relancée à intervalle régulier ou à chaque fin de tour, jusqu'à un objectif vérifié (code de sortie ou verdict).
@@ -376,7 +376,7 @@ Les raccourcis d'une seule touche agissent quand le tableau a le clavier, et se 
 
 ## Mises à jour
 
-Constellation cherche une mise à jour au lancement, puis toutes les 6 heures (réglable). Une version trouvée est signalée par une pastille rouge sur le bouton Réglages ; l'installation reste ton choix. Tu peux aussi passer par **Réglages › À propos › Mises à jour** ou par le menu **Constellation › Rechercher les mises à jour…**. Quand une version est disponible, une pastille apparaît dans la barre du haut.
+Constellation cherche une mise à jour au lancement, puis toutes les 6 heures (réglable). Une version trouvée est signalée par une pastille rouge sur le bouton Réglages ; l'installation reste ton choix. Tu peux aussi passer par **Réglages › Mises à jour** ou par le menu **Constellation › Rechercher les mises à jour…**. Quand une version est disponible, une pastille apparaît dans la barre du haut.
 
 L'archive n'est installée que si sa **signature Ed25519** correspond à la clé intégrée à l'application. Le téléchargement est limité aux serveurs de GitHub, et l'identifiant, la version et la signature de code de l'app sont vérifiés.
 
@@ -494,7 +494,7 @@ Constellation est en développement actif. Les principales limites :
 - **Les contrôles tournent dans un bac à sable macOS.** Ils écrivent dans le dossier de travail, les dossiers temporaires et les caches de paquets, ne lisent pas les clés et secrets les plus courants (`~/.ssh`, `~/.aws`, le trousseau…) et n'ont pas de réseau si la mission utilise le web ou un connecteur. Une case dans les réglages avancés le désactive. Les données Git, la configuration de Claude et les préférences sont protégées, et un contrôle ne peut pas lancer d'apps. Les variables de type clé ou mot de passe exportées par ton profil de shell sont retirées, et ce qu'un contrôle laisse tourner en arrière-plan est arrêté à sa fin (depuis la 0.3.17, un processus dans sa propre session aussi, dans le worktree d'une tâche et s'il reste dans ce dossier). Il ne couvre pas les sessions des agents, qui ont leurs propres règles. Depuis la 0.3.29, tes dossiers personnels (Documents, Bureau, Téléchargements, Photos, Mail, Messages, iCloud) sont fermés, sauf le projet lui-même ; d'autres fichiers du Mac restent lisibles, et ce qu'un contrôle écrit dans le dossier ou un cache peut s'exécuter plus tard. Depuis la 0.3.17, un sous-dossier qui contient un `.git` ou un `CLAUDE.md` ne peut plus être déplacé pendant un contrôle ; un dossier créé ailleurs peut encore y arriver avec son propre `.git`. C'est une barrière de plus, pas une garantie.
 - **Les noms d'exécutables de certains CLI du catalogue n'ont pas été vérifiés.** Pour ceux qui manquent, crée un agent personnalisé.
 
-**Ce qui marche et comment c'est vérifié** : les missions sont couvertes par 851 tests automatiques et de vraies missions réussies ; le bac à sable par des tests avec le vrai `sandbox-exec` ; le clavier dans les cartes (depuis la 0.3.17) avec de vraies touches et de vrais clics envoyés par macOS ; la mise à jour par un vrai passage de la 0.3.15 à la 0.3.17 depuis l'app.
+**Ce qui marche et comment c'est vérifié** : les missions sont couvertes par 870 tests automatiques et de vraies missions réussies ; le bac à sable par des tests avec le vrai `sandbox-exec` ; le clavier dans les cartes (depuis la 0.3.17) avec de vraies touches et de vrais clics envoyés par macOS ; la mise à jour par un vrai passage de la 0.3.15 à la 0.3.17 depuis l'app.
 
 **Encore à vérifier en conditions réelles** : VoiceOver, les fenêtres de confirmation ajoutées en 0.3.19, l'arrêt forcé pendant l'intégration, l'alerte de deuxième instance, le shell fish.
 

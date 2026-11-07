@@ -10,7 +10,17 @@ Un groupe rassemble des consoles sous un nom et une couleur. On l'adresse dans u
 
 Chaque console ou groupe peut porter un rôle : Général, Frontend, Backend, Tests, Revue, Design, Documentation ou Sécurité.
 
-**Aujourd'hui, un rôle est une étiquette.** Il s'affiche sur la carte et sur la carte de mission, et le planificateur des ordres le lit pour répartir le travail. Il ne change ni les outils, ni les permissions, ni le modèle de la console : une console « Revue » peut écrire dans le projet comme les autres. Pour une relecture sans écriture, dis-le dans la consigne, ou passe par une mission.
+**Depuis la 0.3.31, un rôle change ce que fait une console Claude Code**, au démarrage de la console :
+
+| Rôle | Effet |
+|---|---|
+| Général | Aucun. |
+| Frontend, Backend, Tests, Design, Documentation | Une consigne de départ propre au rôle (par exemple : écrire et lancer des tests sans changer le comportement du code). |
+| Revue, Sécurité | Une consigne de départ, et **lecture seule** : la console n'a aucun outil qui modifie un fichier. Elle relit et rend un compte rendu. |
+
+Le rôle d'une console passe avant celui de son groupe. Changer de rôle s'applique au prochain démarrage de la console. Le planificateur des ordres lit aussi le rôle, avec sa description, pour répartir le travail.
+
+Pour Codex, Gemini CLI et les autres CLI, le rôle reste une étiquette : ils n'ont pas de réglage équivalent. Une console « Revue » Codex peut donc écrire ; dis-le dans la consigne.
 
 ## Dispositions
 

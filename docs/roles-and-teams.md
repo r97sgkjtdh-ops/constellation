@@ -10,7 +10,17 @@ A group gathers consoles under a name and a colour. An order reaches it with `@g
 
 Each console or group can carry a role: General, Frontend, Backend, Tests, Review, Design, Documentation or Security.
 
-**Today a role is a label.** It shows on the card and on the mission map, and the order planner reads it to split the work. It changes neither the console's tools, nor its permissions, nor its model: a “Review” console can write in the project like the others. For a review without writing, say so in the instruction, or use a mission.
+**Since 0.3.31, a role changes what a Claude Code console does**, when the console starts:
+
+| Role | Effect |
+|---|---|
+| General | None. |
+| Frontend, Backend, Tests, Design, Documentation | A starting instruction for the role (for instance: write and run tests without changing the code's behaviour). |
+| Review, Security | A starting instruction, and **read-only**: the console has no tool that changes a file. It reviews and writes a report. |
+
+A console's own role comes before its group's. A new role applies at the console's next start. The order planner also reads the role, with its description, to split the work.
+
+For Codex, Gemini CLI and the other CLIs, the role stays a label: they have no matching setting. A Codex “Review” console can therefore write; say so in the instruction.
 
 ## Layouts
 

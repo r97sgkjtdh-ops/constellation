@@ -28,7 +28,7 @@
 
 <p align="center"><sub>Screenshots of the app, with sample data.</sub></p>
 
-> **New in 0.3.29 and 0.3.30**: an order's plan can be edited before sending and its steps can wait for each other; a stuck console is flagged; macOS notifications; going back to an earlier version from the app. [Everything new](CHANGELOG.en.md)
+> **New in 0.3.31**: redone Settings (sidebar with search, notifications by kind, board, data, credits); roles that really change how Claude Code consoles behave; six mission templates; the order history; a warning when two consoles change the same file; notifications signed Constellation. [Everything new](CHANGELOG.en.md)
 
 ---
 
@@ -90,7 +90,7 @@ Constellation is a native app (Swift and SwiftUI). It has no server and no accou
 - Separate profiles for Claude Code (`CLAUDE_CONFIG_DIR`) and Codex (`CODEX_HOME`).
 
 ### Coordination
-- Named, colored **groups**, with roles (frontend, backend, tests, review, documentation, security…).
+- Named, colored **groups**, with roles (frontend, backend, tests, review, documentation, security…). For Claude Code, a role gives a starting instruction, and Review and Security work read-only.
 - **Command bar** (⌘K): `@console` and `@group` mentions, natural-language orders ("create 4 Codex agents") and a plan you can edit and approve before sending, with steps that wait for others and a final report. Guides: [giving orders](docs/orders.md), [roles and teams](docs/roles-and-teams.md), [examples](docs/examples.md).
 - **Relays**: handoff to a new console with a summary, and forwarding of replies from one console to others.
 - **Loops**: an instruction re-run at a regular interval or at the end of each turn, until a verified goal (exit code or verdict).
@@ -376,7 +376,7 @@ Single-key shortcuts work when the board has the keyboard, and can be changed in
 
 ## Updates
 
-Constellation checks for an update at launch, then every 6 hours (adjustable). A version found shows as a red dot on the Settings button; installing stays your choice. You can also use **Settings › About › Updates** or the **Constellation › Check for Updates…** menu. When a version is available, a badge appears in the top bar.
+Constellation checks for an update at launch, then every 6 hours (adjustable). A version found shows as a red dot on the Settings button; installing stays your choice. You can also use **Settings › Updates** or the **Constellation › Check for Updates…** menu. When a version is available, a badge appears in the top bar.
 
 The archive is installed only if its **Ed25519 signature** matches the key built into the app. The download is limited to GitHub's servers, and the app's identifier, version and code signature are checked.
 
@@ -494,7 +494,7 @@ Constellation is under active development. The main limits:
 - **Checks run in a macOS sandbox.** They write in the working folder, temporary folders and package caches, cannot read the most common keys and secrets (`~/.ssh`, `~/.aws`, the keychain…) and have no network if the mission uses the web or a connector. A box in the advanced settings turns it off. Git data, Claude's configuration and preferences are protected, and a check cannot launch apps. Key or password variables exported by your shell profile are removed, and what a check leaves running in the background is stopped when it ends (since 0.3.17, a process in its own session too, in a task's worktree and if it stays in that folder). It does not cover agent sessions, which have their own rules. Since 0.3.29, your personal folders (Documents, Desktop, Downloads, Pictures, Mail, Messages, iCloud) are closed, except the project itself; other files on the Mac stay readable, and what a check writes in the folder or a cache can run later. Since 0.3.17, a subfolder holding a `.git` or a `CLAUDE.md` can no longer be moved during a check; a folder made elsewhere can still arrive with its own `.git`. It is one more barrier, not a guarantee.
 - **The executable names of some catalog CLIs have not been verified.** For those that are missing, create a custom agent.
 
-**What works and how it was checked**: missions are covered by 730 automated tests and real successful missions; the sandbox by tests with the real `sandbox-exec`; the keyboard inside cards (since 0.3.17) with real keys and real clicks sent by macOS; the update by a real move from 0.3.15 to 0.3.17 from the app.
+**What works and how it was checked**: missions are covered by 870 automated tests and real successful missions; the sandbox by tests with the real `sandbox-exec`; the keyboard inside cards (since 0.3.17) with real keys and real clicks sent by macOS; the update by a real move from 0.3.15 to 0.3.17 from the app.
 
 **Still to check in real conditions**: VoiceOver, the confirmation dialogs added in 0.3.19, a forced stop during integration, the second-instance alert, the fish shell.
 

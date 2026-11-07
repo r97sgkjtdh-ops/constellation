@@ -4,6 +4,29 @@
 
 Les nouveautés et corrections de chaque version publiée, de la plus récente à la plus ancienne. Avant la 0.3.0, les versions n'étaient pas publiées.
 
+## 0.3.31 (2026-11-07)
+
+### Nouveautés
+- **Des rôles qui changent vraiment le comportement** (Claude Code) : chaque rôle donne une consigne de départ, et **Revue** et **Sécurité** travaillent en lecture seule, sans outil qui modifie un fichier. Le planificateur des ordres lit la description du rôle.
+- **Modèles de mission** : six modèles prêts à compléter (corriger un bug, nouvelle fonctionnalité, audit, documentation, recherche sur le web, restructuration), et tes propres modèles. Un modèle n'emporte jamais les connecteurs, ni ton accord pour les sources externes, ni l'autorisation des contrôles.
+- **« Refaire » une mission** reprend aussi son mode, ses limites, son isolement et le web.
+- **Historique des ordres** : tous les ordres, même effacés du fil, avec recherche, détail et export en Markdown sans secrets.
+- **Même fichier modifié** : deux consoles Claude qui modifient le même fichier dans la même demi-heure sont signalées.
+- **Journal gardé sur le disque** (7 jours, sans secrets), et un arrêt brusque est signalé au lancement suivant, avec un diagnostic qui joint le rapport de plantage de macOS.
+- **Des notifications signées Constellation** : un tour terminé est signalé par Constellation. Dans les consoles et les missions qu'elle lance, la notification « Claude Code » du module ECC est coupée ; elle reste active dans ton Terminal.
+- **Barre du haut allégée** : le quota et la consommation ne font plus qu'un bouton.
+- **Réglages refaits** : une barre latérale avec recherche, comme les Réglages de macOS, et de nouvelles rubriques. **Tableau** : taille des nouvelles consoles, fond animé, fixe ou sans réseau. **Notifications** : chaque type d'événement se règle à part, avec ou sans son, et le badge du Dock. **Confirmations** : on peut ne plus être interrogé avant d'arrêter une console ou de quitter. **Données** : exporter, importer ou réinitialiser les réglages, créer un diagnostic, ouvrir le journal. **À propos** : les crédits (Vel, avec le lien GitHub) et les logiciels libres utilisés.
+
+### Corrections
+- **Compteur de consoles** : il pouvait compter des consoles de projets de test, laissés dans les données par les captures automatiques. Les captures gardent maintenant tout dans leur dossier jetable.
+- **Réglages › Mises à jour** : « Depuis le code de ce Mac » n'apparaît plus dans une app publiée, qui ne pouvait pas s'en servir.
+
+### À savoir
+- **Vérifié** : la suite de tests sur ce Mac (870 tests, 16 ignorés, aucun échec) ; les options des rôles avec le vrai Claude Code ; l'alerte « même fichier » avec le vrai script, qui ne garde que le chemin du fichier. GitHub n'a pas lancé ses vérifications (minutes du mois épuisées).
+- **Vérifié par captures** : chaque rubrique des nouveaux Réglages, en français et en anglais.
+- **Non vérifié à l'écran** : les modèles de mission, l'historique des ordres, l'alerte « même fichier » et les nouvelles notifications. Si quelque chose coince, ouvre une issue.
+- **Changer le rôle d'une console** s'applique à son prochain démarrage. Pour Codex et Gemini, le rôle reste une étiquette.
+
 ## 0.3.30 (2026-11-06)
 
 ### Corrections
