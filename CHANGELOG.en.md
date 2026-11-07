@@ -4,6 +4,17 @@
 
 What each published version brought, newest first. Before 0.3.0, versions were not published.
 
+## 0.3.32 (2026-11-07)
+
+### New
+- **Usage redone**: the Claude plan's quota shows as rings (5-hour session, week), with what is left and when it resets. The key figures fit on one compact line (cache read and written are grouped), and the per-day chart shows without scrolling.
+
+### Fixes
+- **Settings**: no more button to hide the left sidebar nor a large empty band at the top; the selection, switches and menus take the app's colour instead of macOS's; no more duplicated titles (Theme, Updates); the profiles row (Accounts) is aligned; the custom colour is a round swatch like the others; the text size reads "12,5 pt" in French.
+
+### Good to know
+- **Checked**: the test suite on this Mac (870 tests, 16 skipped, no failures); every section of the real Settings window and the usage window, by captures with sample data.
+
 ## 0.3.31 (2026-11-07)
 
 ### New

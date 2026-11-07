@@ -4,6 +4,17 @@
 
 Les nouveautés et corrections de chaque version publiée, de la plus récente à la plus ancienne. Avant la 0.3.0, les versions n'étaient pas publiées.
 
+## 0.3.32 (2026-11-07)
+
+### Nouveautés
+- **Consommation refaite** : le quota de l'abonnement Claude s'affiche en jauges rondes (session de 5 h, semaine), avec ce qui reste et l'heure de remise à zéro. Les chiffres clés tiennent sur une seule ligne compacte (le cache lu et écrit est regroupé), et le graphique par jour se voit sans défiler.
+
+### Corrections
+- **Réglages** : plus de bouton pour masquer la barre de gauche ni de grande bande vide en haut ; la sélection, les interrupteurs et les menus prennent la couleur de l'app au lieu de celle de macOS ; plus de titres en double (Thème, Mises à jour) ; la ligne des profils (Comptes) est alignée ; la couleur personnalisée est une pastille ronde comme les autres ; la taille du texte s'écrit « 12,5 pt » en français.
+
+### À savoir
+- **Vérifié** : la suite de tests sur ce Mac (870 tests, 16 ignorés, aucun échec) ; chaque rubrique de la vraie fenêtre des Réglages et la fenêtre de consommation, par captures avec des données d'exemple.
+
 ## 0.3.31 (2026-11-07)
 
 ### Nouveautés

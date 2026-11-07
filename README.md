@@ -28,7 +28,7 @@
 
 <p align="center"><sub>Captures de l'app, avec des données d'exemple.</sub></p>
 
-> **Nouveau dans la 0.3.31** : des Réglages refaits (barre latérale avec recherche, notifications par type, tableau, données, crédits) ; des rôles qui changent vraiment le comportement des consoles Claude Code ; six modèles de mission ; l'historique des ordres ; l'alerte quand deux consoles modifient le même fichier ; des notifications signées Constellation. [Toutes les nouveautés](CHANGELOG.md)
+> **Nouveau dans les 0.3.31 et 0.3.32** : une fenêtre de consommation refaite (quota en jauges) ; des Réglages refaits (barre latérale avec recherche, notifications par type, tableau, données, crédits) ; des rôles qui changent vraiment le comportement des consoles Claude Code ; six modèles de mission ; l'historique des ordres ; l'alerte quand deux consoles modifient le même fichier ; des notifications signées Constellation. [Toutes les nouveautés](CHANGELOG.md)
 
 ---
 

@@ -28,7 +28,7 @@
 
 <p align="center"><sub>Screenshots of the app, with sample data.</sub></p>
 
-> **New in 0.3.31**: redone Settings (sidebar with search, notifications by kind, board, data, credits); roles that really change how Claude Code consoles behave; six mission templates; the order history; a warning when two consoles change the same file; notifications signed Constellation. [Everything new](CHANGELOG.en.md)
+> **New in 0.3.31 and 0.3.32**: a redone usage window (quota as rings); redone Settings (sidebar with search, notifications by kind, board, data, credits); roles that really change how Claude Code consoles behave; six mission templates; the order history; a warning when two consoles change the same file; notifications signed Constellation. [Everything new](CHANGELOG.en.md)
 
 ---
 
